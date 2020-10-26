@@ -1,0 +1,29 @@
+#! /usr/bin/env dash
+
+wmrc &
+
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &
+
+xrandr --output DisplayPort-0 --mode 1920x1080_140.00 &
+
+scream -o pulse -i br0 &
+
+nitrogen --restore &
+
+/usr/lib/kdeconnectd &
+
+flameshot &
+
+pnmixer &
+
+mictray &
+
+nm-applet --indicator &
+
+xfce4-clipman &
+
+xfce4-power-manager &
+
+steam -silent &
+
+discord -silent &

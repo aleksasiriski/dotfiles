@@ -1,0 +1,210 @@
+include-file = $HOME/.config/polybar/modules.ini
+
+[color]
+
+trans 			= #00000000
+white 			= #FFFFFF
+black 			= #000000
+
+bg 					= #00000000
+fg 					= #BBFFFFFF
+mg 					= #40FFFFFF
+
+red 				= #e53935
+pink 				= #d81b60
+purple 			= #8e24aa
+deep-purple = #5e35b1
+indigo 			= #3949ab
+blue 				= #1e88e5
+light-blue 	= #039be5
+cyan 				= #00acc1
+teal 				= #00897b
+green 			= #43a047
+light-green = #7cb342
+lime 				= #c0ca33
+yellow 			= #fdd835
+amber 			= #ffb300
+orange 			= #fb8c00
+deep-orange = #f4511e
+brown 			= #6d4c41
+grey 				= #757575
+blue-gray 	= #546e7a
+
+[size]
+
+width 		= 100%:-5
+height 		= 25
+offset 		= 0
+
+[bar/primary]
+
+monitor = ${env:MONITOR:}
+monitor-strict = false
+monitor-exact = true
+
+override-redirect = false
+
+bottom = true
+fixed-center = true
+width = ${size.width}
+height = ${size.height}
+offset-x = ${size.offset}
+offset-y = ${size.offset}
+
+background = ${color.bg}
+foreground = ${color.fg}
+radius = 0.0
+line-size = 2
+border-size = 0
+padding = 0
+module-margin = 1
+
+font-0 = "Iosevka:size=10;0"
+font-1 = "Material Design Icons:style=Regular:size=10;0"
+font-2 = "Noto Sans:size=10:antialias=true;0"
+font-3 = "Noto Sans CJK:size=10:antialias=true;0"
+font-4 = "Noto Sans Symbols:size=10:antialias=true;0"
+
+modules-left = ${env:ML:}
+modules-center = ${env:MC:}
+modules-right = ${env:MR:}
+
+separator = %{F#66FFFFFF}|%{F-}
+
+wm-name = bspwm
+
+locale = en_US.UTF-8
+
+tray-position = right
+tray-detached = false
+tray-maxsize = 20
+tray-background = ${color.trans}
+tray-offset-x = 5
+tray-offset-y = -2
+tray-padding = 1
+tray-scale = 1.0
+
+wm-restack = bspwm
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+;dpi-x = 96
+;dpi-y = 96
+
+enable-ipc = false
+
+[bar/secondary]
+
+monitor = ${env:MONITOR:}
+monitor-strict = false
+monitor-exact = true
+
+override-redirect = false
+
+bottom = true
+fixed-center = true
+width = ${size.width}
+height = ${size.height}
+offset-x = ${size.offset}
+offset-y = ${size.offset}
+
+background = ${color.bg}
+foreground = ${color.fg}
+radius = 0.0
+line-size = 2
+border-size = 0
+padding = 0
+module-margin = 1
+
+font-0 = "Iosevka:size=10;0"
+font-1 = "Material Design Icons:style=Regular:size=10;0"
+
+modules-left = bspwm
+modules-center = playerctl
+modules-right = updates monitor host date
+
+separator = %{F#66FFFFFF}|%{F-}
+
+wm-name = bspwm
+
+locale = en_US.UTF-8
+
+tray-position = none
+
+wm-restack = bspwm
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+;dpi-x = 96
+;dpi-y = 96
+
+enable-ipc = false
+
+[bar/main]
+
+monitor = ${env:MONITOR:}
+monitor-strict = false
+monitor-exact = true
+
+override-redirect = false
+
+bottom = true
+fixed-center = true
+width = ${size.width}
+height = ${size.height}
+offset-x = ${size.offset}
+offset-y = ${size.offset}
+
+background = ${color.bg}
+foreground = ${color.fg}
+radius = 0.0
+line-size = 2
+border-size = 0
+padding = 0
+module-margin = 1
+
+font-0 = "Iosevka:size=10;0"
+font-1 = "Material Design Icons:style=Regular:size=10;0"
+
+modules-left = ${env:ML:}
+modules-center = ${env:MC:}
+modules-right = ${env:MR:}
+
+separator = %{F#66FFFFFF}|%{F-}
+
+wm-name = bspwm
+
+locale = en_US.UTF-8
+
+tray-position = ${env:NOTIF:}
+tray-detached = false
+tray-maxsize = 20
+tray-background = ${color.trans}
+tray-offset-x = 5
+tray-offset-y = -2
+tray-padding = 1
+tray-scale = 1.0
+
+wm-restack = bspwm
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+;dpi-x = 96
+;dpi-y = 96
+
+enable-ipc = false
+
+[settings]
+
+throttle-output = 5
+throttle-output-for = 10
+throttle-input-for = 30
+screenchange-reload = false
+
+format-foreground = ${color.fg}
+format-background = ${color.bg}
+format-underline = ${color.bg}
+format-overline =
+format-spacing = 1
+format-padding =
+format-margin = 
+format-offset = 
+
+pseudo-transparency = false
