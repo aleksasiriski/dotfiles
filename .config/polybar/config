@@ -44,7 +44,7 @@ monitor-exact = true
 
 override-redirect = false
 
-bottom = true
+bottom = false
 fixed-center = true
 width = ${size.width}
 height = ${size.height}
@@ -100,7 +100,7 @@ monitor-exact = true
 
 override-redirect = false
 
-bottom = true
+bottom = false
 fixed-center = true
 width = ${size.width}
 height = ${size.height}
@@ -146,7 +146,7 @@ monitor-exact = true
 
 override-redirect = false
 
-bottom = true
+bottom = false
 fixed-center = true
 width = ${size.width}
 height = ${size.height}

@@ -28,11 +28,6 @@ super + BackSpace
 super + b
 	firefox
 
-# Disable Firefox quit shortcut (ignore)
-#ctrl + q
-#	xprop -id "$(bspc query -N -n)" | grep -q 'WM_CLASS.*firefox' || \
-#	xdotool keydown ctrl key q keyup ctrl
-
 # Launch Firefox in private mode
 super + shift + b
 	firefox -private-window
@@ -279,7 +274,7 @@ super + Escape
 
 # Shut down
 super + @Delete
-	alacritty -e /usr/sbin/shutdown -now
+	alacritty -e /usr/sbin/shutdown now
 
 # Reboot
 super + shift + @Delete
@@ -295,17 +290,9 @@ super + shift + @Delete
 
 ## Multimedia keys
 
-# Change volume using standard keys for default sink
-super + {Prior, Next}
-	pactl set-sink-volume "$(pactl info | grep 'Default Sink:' | sed 's/.*: //')" {+,-}1%
-
 # Change volume using media keys for default sink
 {XF86AudioRaiseVolume,XF86AudioLowerVolume}
 	pactl set-sink-volume "$(pactl info | grep 'Default Sink:' | sed 's/.*: //')" {+,-}1%
-
-# Toggle volume using standard keys for default sink
-super + Insert
-	pactl set-sink-mute "$(pactl info | grep 'Default Sink:' | sed 's/.*: //')" toggle
 
 # Toggle volume using media keys for default sink
 XF86AudioMute
@@ -319,28 +306,20 @@ super + {XF86AudioLowerVolume,XF86AudioRaiseVolume}
 ctrl + {XF86AudioLowerVolume,XF86AudioRaiseVolume}
 	wmrc -r 'screen/backlight(equ,{0,100})'
 
-# Select monitor layout
-super + {o, XF86AudioMicMute}
-	wmrc -r 'screen/layout'
-
-# Launch Pulseaudio control interface
-super + XF86AudioMute
-	pavucontrol
-
 # Toggle mute microphone
-{super + shift + Insert, XF86AudioMicMute}
+XF86AudioStop
 	pactl set-source-mute "$(pactl info | grep 'Default Source:' | sed 's/.*: //')" toggle
 
 # Playerctl previous track in playlist
-{super + @F10, XF86AudioPrev}
+XF86AudioPrev
 	playerctl -a previous
 
 # Playerctl next track in playlist
-{super + @F11, XF86AudioNext}
+XF86AudioNext
 	playerctl -a next
 
 # Playerctl toggle pause playback
-{super + @F12, XF86AudioPlay}
+XF86AudioPlay
 	playerctl -a play-pause
 
 ## Appearance

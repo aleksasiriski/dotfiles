@@ -24,6 +24,8 @@ xfce4-clipman &
 
 xfce4-power-manager &
 
+corectrl &
+
 steam -silent &
 
-discord -silent &
+discord &
