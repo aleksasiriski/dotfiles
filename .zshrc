@@ -120,7 +120,7 @@ alias virsh='sudo virsh'
 alias mpv='devour mpv'
 alias vlc='devour vlc'
 alias imv='devour imv'
-alias lgc='devour looking-glass-client -s -F'
+alias lgc='devour /home/$USER/LookingGlass/client/build/looking-glass-client -s -F'
 
 # Startup
 clear
