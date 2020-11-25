@@ -122,8 +122,9 @@ alias virsh='sudo virsh'
 alias mpv='devour mpv'
 alias vlc='devour vlc'
 alias imv='devour imv'
-alias lgc='devour /home/$USER/LookingGlass/client/build/looking-glass-client -s -F'
+alias lgc='devour looking-glass-client -s -F'
 alias vlgc='virsh start win10 && lgc'
+alias bat='headsetcontrol -b'
 
 # Startup
 clear
