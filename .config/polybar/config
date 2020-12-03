@@ -188,14 +188,13 @@ scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 ;dpi-x = 96
 ;dpi-y = 96
-
 enable-ipc = false
 
 [settings]
 
 throttle-output = 5
 throttle-output-for = 10
-throttle-input-for = 30
+;throttle-input-for = 30
 screenchange-reload = false
 
 format-foreground = ${color.fg}

@@ -20,9 +20,9 @@ mictray &
 
 nm-applet --indicator &
 
-xfce4-clipman &
-
 xfce4-power-manager &
+
+ckb-next &
 
 steam -silent &
 
