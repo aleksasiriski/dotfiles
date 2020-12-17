@@ -4,11 +4,11 @@ wmrc &
 
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &
 
-scream -o pulse -i br0 &
-
 nitrogen --restore &
 
 /usr/lib/kdeconnectd &
+
+xfce4-clipman &
 
 flameshot &
 

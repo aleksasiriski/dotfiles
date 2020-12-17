@@ -50,3 +50,6 @@ fi
 
 xrdb ~/.Xresources
 xsetroot -cursor_name left_ptr
+
+autocutsel -fork &
+autocutsel -selection PRIMARY -fork &
