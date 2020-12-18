@@ -103,10 +103,10 @@ alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
 # reboot / halt / poweroff
-alias reboot='sudo bash $HOME/reboot'
-alias poweroff='sudo bash $HOME/shutdown'
-alias halt='sudo bash $HOME/shutdown'
-alias shutdown='sudo bash $HOME/shutdown'
+alias reboot='sudo sh $HOME/reboot.sh'
+alias poweroff='sudo sh $HOME/shutdown.sh'
+alias halt='sudo sh $HOME/shutdown.sh'
+alias shutdown='sudo sh $HOME/shutdown.sh'
 
 # ssh
 alias sshserver='ssh media@server.lavelektronik.com'
