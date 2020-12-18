@@ -51,7 +51,7 @@ super + c
 
 # Launch Discord
 super + d
-	discord-canary
+	discord
 
 #Lauch Lutris
 super + g
