@@ -22,6 +22,8 @@ nm-applet --indicator &
 
 xfce4-power-manager &
 
+obs --startreplaybuffer &
+
 steam -silent &
 
 discord &
