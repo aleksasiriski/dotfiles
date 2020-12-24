@@ -6,7 +6,6 @@ xfce4-power-manager &
 nitrogen --restore &
 flameshot &
 /usr/lib/kdeconnectd &
-sleep 1 &
 xfce4-clipman &
 pnmixer &
 mictray &
