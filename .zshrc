@@ -69,8 +69,7 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # Aliases
 alias pacman="sudo pacman"
-alias jeja="yay"
-alias jejas="yay -Syu"
+alias yays="yay -Syu"
 alias sheesh="yay -Rns"
 
 alias ls='ls --color=auto'
