@@ -5,5 +5,5 @@ then
 	echo -e "VM is running!"
 else
 	echo -e "Shutting down..."
-	/usr/bin/shutdown now
+	sudo /usr/sbin/shutdown now
 fi
