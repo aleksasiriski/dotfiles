@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 efibootmgr --disk /dev/sda --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux-zen --unicode 'root=PARTUUID=a6cb1784-7fe4-6c43-aa52-355c40929e17 rw loglevel=3 quiet amdgpu.ppfeaturemask=0xffffffff add_efi_memmap initrd=\intel-ucode.img initrd=\initramfs-linux-zen.img' --verbose
-=======
-efibootmgr --disk /dev/sda --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux-zen --unicode 'root=PARTUUID=ef025857-c0a0-a743-8bd8-5f2bd23b3b58 rw loglevel=3 quiet console=tty2 amdgpu.ppfeaturemask=0xffffffff add_efi_memmap initrd=\intel-ucode.img initrd=\initramfs-linux-zen.img' --verbose
->>>>>>> 4ada5bfc7e318f95ac212f32db663e5161485edb
+
+efibootmgr --disk /dev/sda --part 1 --create --label "Arch" --loader /vmlinuz-linux-zen --unicode 'root=LABEL=arch rw loglevel=3 quiet add_efi_memmap initrd=\intel-ucode.img initrd=\initramfs-linux-zen.img' --verbose
 
 loglevel=3 quiet intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba
