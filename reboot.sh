@@ -5,5 +5,5 @@ then
 	echo -e "VM is running!"
 else
 	echo -e "Rebooting..."
-	sudo /usr/sbin/reboot
+	sudo /usr/sbin/reboot f
 fi

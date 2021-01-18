@@ -274,11 +274,11 @@ super + Escape
 
 # Shut down
 super + @Delete
-	alacritty -e sudo sh $HOME/shutdown.sh
+	alacritty -e /usr/sbin/shutdown now
 
 # Reboot
 super + shift + @Delete
-	alacritty -e sudo sh $HOME/reboot.sh
+	alacritty -e /usr/sbin/reboot
 
 # Lock the device using physlock
 #XF86Launch1
