@@ -1,7 +1,7 @@
 # Set custom GPU states 6 & 7:
 OD_SCLK:
 6:       1340MHz        1150mV
-7:       1450MHz        1200mV
+7:       1420MHz        1200mV
 # Set custom memory states 1 & 2:
 OD_MCLK:
 1:       1000MHz        800mV
