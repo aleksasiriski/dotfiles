@@ -1,15 +1,4 @@
 #! /usr/bin/env dash
 xrandr --output DisplayPort-0 --mode 1920x1080 --rate 144 &
 wmrc &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &
-xfce4-power-manager &
-nitrogen --restore &
-flameshot &
-/usr/lib/kdeconnectd &
-xfce4-clipman &
-pnmixer &
-mictray &
-nm-applet --indicator &
-obs --startreplaybuffer &
-steam -silent &
-discord &
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)

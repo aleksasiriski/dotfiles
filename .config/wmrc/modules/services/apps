@@ -2,15 +2,18 @@
 # WMRC_DEPS: pgrep
 # WMRC_FLAGS:
 
-APPS='unclutter -idle 1
-      redshift-qt
-      dunst
+APPS='dunst
       flameshot
-      keepassxc
-      signal-desktop --start-in-tray
       dino --gapplication-service
-      wire-desktop --startup
-      mail-notification
+      xfce4-power-manager
+      xfce4-clipman
+      nitrogen --restore
+      pnmixer
+      mictray
+      nm-applet --indicator
+      obs --startreplaybuffer
+      steam -silent
+      discord
       '
 
 app_list() {
