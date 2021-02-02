@@ -14,11 +14,12 @@ yay -S xorg xorg-xinit mesa lib32-mesa xf86-video-amdgpu vulkan-radeon vulkan-ic
 clear
 
 echo '!!! Old intel drivers (only if necessary !!!'
+yay -Rns intel-media-driver
 yay -S xf86-video-intel libva-intel-driver
 clear
 
 echo 'Pulseaudio'
-yay -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth
+yay -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth bluez bluez-plugins bluez-tools bluez-utils blueberry
 clear
 
 echo 'WM'
@@ -27,6 +28,7 @@ clear
 
 echo 'Display manager & Polkit'
 yay -S lightdm lightdm-slick-greeter polkit-gnome
+sudo systemctl enable lightdm
 clear
 
 echo 'Fonts, icons & themes'
@@ -34,7 +36,7 @@ yay -S noto-fonts noto-fonts-emoji papirus-icon-theme qogir-icon-theme materia-g
 clear
 
 echo 'Standard GUI apps'
-yay -S alacritty xterm thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g firefox chromium nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc
+yay -S alacritty xterm thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver firefox chromium nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc cpu-x
 clear
 
 echo 'Pulseaudio apps'
@@ -46,21 +48,34 @@ yay -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-liblda
 clear
 
 echo 'Gaming'
-yay -S steam lutris 
+yay -S steam lutris heroic-games-launcher-bin parsec mangohud goverlay
 clear
 
 echo 'Social'
 yay -S discord dino 
 clear
 
+echo 'Video production'
+yay -S obs-studio kdenlive kdecoration handbrake gimp
+clear
+
+echo 'qBittorrent & balenaEtcher'
+yay -S qbittorrent balena-etcher
+clear
+
+echo 'LibreOffice'
+yay -S libreoffice-fresh
+clear
+
 echo 'Gamemoded*'
 yay -S meson dbus cpupower
+sudo systemctl enable cpupower
 clear
 
 echo 'Proton-GE'
 cd ~
 wget https://raw.githubusercontent.com/Termuellinator/ProtonUpdater/master/cproton.sh
-sudo chmod +x cproton.sh
+chmod +x cproton.sh
 ./cproton.sh
 clear
 
