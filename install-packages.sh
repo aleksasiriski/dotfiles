@@ -2,7 +2,7 @@
 echo 'Installing packages...'
 
 echo 'Better CLI tools'
-yay -S neofetch htop bashtop micro calc autocutsel wget curl git
+yay -S neofetch htop bashtop micro calc autocutsel wget curl git github-cli
 clear
 
 echo 'ZSH'
