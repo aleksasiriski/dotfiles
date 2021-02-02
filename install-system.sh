@@ -167,7 +167,7 @@ parse_options() {
 			(E) if [ "$OPTARG" = '' ]; then
 					CONF_DISK_ENCRYPTION='no'
 				else
-					CONF_DISK_ENCRYPTION='yes'
+					CONF_DISK_ENCRYPTION='no'
 					CONF_DISK_PASS="$OPTARG"
 				fi;
 				WARN_PARAMS='true';;
@@ -348,7 +348,7 @@ configure_host() {
 
 	if [ -z "$CONF_DISK" ]; then
 		if print c 'Y' 'Enable full disk encryption'; then
-			conf_disk_encryption='yes'
+			conf_disk_encryption='no'
 			print "$CONF_PASS_PROMPT" '.+' 'Enter disk password:'
 			conf_disk_pass="$user_input"
 			print "$CONF_PASS_PROMPT" '.+' 'Repeat disk password:'
@@ -366,7 +366,7 @@ configure_host() {
 	if [ -z "$CONF_SWAPFILE" ]; then
 		if print c 'Y' 'Enable swap file'; then
 			conf_swapfile='yes'
-			swapfile_default="$(free --mega | awk '$1 == "Mem:" {m=2**int(log(int($2)/2)/log(2)); print (m>=1024)?m:1024;}')"
+			swapfile_default=2048
 			print i '$|^([1-9][0-9]*)' "Swap file size in megabytes [$swapfile_default]:"
 			if [ -z "$user_input" ]; then
 				conf_swapfile_size="$swapfile_default"
@@ -608,11 +608,14 @@ pre_installation() {
 
 	print s 'Format disk' && \
 	sgdisk --zap-all "/dev/$conf_disk" &>> "$CONF_LOGFILE" &&\
-	yes | mkfs.ext4 -F "/dev/${conf_disk}${part_prefix}2" &>> "$CONF_LOGFILE" && \
-	e2label "/dev/${conf_disk}${part_prefix}2" archlinux  &>> "$CONF_LOGFILE" && \
+	sgdisk "/dev/$conf_disk" -o -n 1:0:512M -t 1:ef00 -N 2 -t "2:8e00" &>> "$CONF_LOGFILE" && \
 
 	print s 'Format boot partition' && \
 	yes | mkfs.fat -F32 "/dev/${conf_disk}${part_prefix}1" &>> "$CONF_LOGFILE" && \
+
+	print s 'Format root partition & label it' && \
+	yes | mkfs.ext4 -F "/dev/${conf_disk}${part_prefix}2" &>> "$CONF_LOGFILE" && \
+	e2label "/dev/${conf_disk}${part_prefix}2" archlinux  &>> "$CONF_LOGFILE" && \
 
 	print s 'Mount partitions' && \
 	mount "/dev/${conf_disk}${part_prefix}2" /mnt &>> "$CONF_LOGFILE" && \
@@ -782,10 +785,6 @@ post_installation() {
 
 	print s 'Unmount filesystem'
 	umount -R /mnt && \
-	if [ "$conf_disk_encryption" = 'yes' ]; then
-		lvchange -an /dev/archlinux &>> "$CONF_LOGFILE" && \
-		cryptsetup close cryptlvm &>> "$CONF_LOGFILE"
-	fi && \
 
 	print s 'Installation complete' && \
 	print w 'Reboot and eject your installation media'
