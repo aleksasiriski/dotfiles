@@ -56,7 +56,7 @@ yay -S discord dino
 clear
 
 echo 'Video production'
-yay -S obs-studio kdenlive kdecoration handbrake gimp
+yay -S obs-studio kdenlive breeze handbrake gimp
 clear
 
 echo 'qBittorrent & balenaEtcher'
