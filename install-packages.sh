@@ -26,7 +26,7 @@ print s 'Fonts, icons & themes'
 yay -S noto-fonts noto-fonts-emoji papirus-icon-theme qogir-icon-theme materia-gtk-theme lxappearance
 
 print s 'Standard GUI apps'
-yay -S alacritty xterm thunar firefox chromium nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc
+yay -S alacritty xterm thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp firefox chromium nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc
 
 print s 'Pulseaudio apps'
 yay -S pavucontrol pnmixer mictray nm-applet
