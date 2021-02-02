@@ -659,6 +659,7 @@ END
 END
 	} && \
 
+	sed -i 's/^MODULES=(.*)/MODULES=(amdgpu i915)/' /mnt/etc/mkinitcpio.conf
 	arch-chroot /mnt mkinitcpio -P &>> "$CONF_LOGFILE" && \
 
 	print s 'Configure pacman and makepkg' && \
@@ -674,19 +675,12 @@ END
 	} && \
 	print s 'Setup bootloader' && \
 	arch-chroot /mnt bootctl install &>> "$CONF_LOGFILE" && {
-	if [ "$conf_lts_kernel" = 'yes' ]; then
-		tee /mnt/boot/loader/loader.conf &>> "$CONF_LOGFILE" << END
-timeout 1
-default arch
-END
-	else 
 	tee /mnt/boot/loader/loader.conf &>> "$CONF_LOGFILE" << END
 timeout 0
 default arch
 END
-	fi
-	}
-	root_volume="root=LABEL=archlinux"
+	} &&
+	root_volume="root=LABEL=archlinux" && {
 	tee /mnt/boot/loader/entries/arch.conf &>> "$CONF_LOGFILE" << END
 title    Arch Linux
 linux    /vmlinuz-linux-zen
@@ -730,9 +724,9 @@ END
 	else
 		print s 'Set root password' && \
 		if [ -z "$conf_pass_root" ]; then
-			arch-chroot /mnt passwd -d root &>> "$CONF_LOGFILE"
+			arch-chroot /mnt passwd -d root
 		else
-			arch-chroot /mnt su -c "echo 'root:$conf_pass_root' | chpasswd" &>> "$CONF_LOGFILE"
+			arch-chroot /mnt su -c "echo 'root:$conf_pass_root' | chpasswd"
 		fi
 	fi && \
 
