@@ -617,7 +617,7 @@ pre_installation() {
 	print s 'Mount partitions' && \
 	mount "/dev/${conf_disk}${part_prefix}2" /mnt &>> "$CONF_LOGFILE" && \
 	mkdir -p /mnt/boot &>> "$CONF_LOGFILE" && \
-	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot &>> "$CONF_LOGFILE" && \
+	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot &>> "$CONF_LOGFILE"
 
 }
 
@@ -684,8 +684,8 @@ END
 timeout 0
 default arch
 END
-	fi && \
-	} && 
+	fi
+	}
 	root_volume="root=LABEL=archlinux"
 	tee /mnt/boot/loader/entries/arch.conf &>> "$CONF_LOGFILE" << END
 title    Arch Linux
@@ -708,9 +708,7 @@ END
 	if [ "$conf_uefi_entry" = 'yes' ]; then
 		print s 'Create direct UEFI boot entry' && \
 		root_volume="root=LABEL=archlinux"
-		&& {
-			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch Linux' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw loglevel=3 quiet add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\initramfs-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
-		} && \
+		efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch Linux' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw loglevel=3 quiet add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\initramfs-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
 		if [ "$conf_lts_kernel" = 'yes' ]; then
 			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch Linux (LTS)' --loader '/vmlinuz-linux-lts' --unicode "${root_volume} rw loglevel=3 quiet add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\initramfs-linux-lts.img" --verbose  &>> "$CONF_LOGFILE"
 		fi
