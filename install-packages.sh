@@ -34,11 +34,11 @@ yay -S noto-fonts noto-fonts-emoji papirus-icon-theme qogir-icon-theme materia-g
 clear
 
 echo 'Standard GUI apps'
-yay -S alacritty xterm thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp firefox chromium nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc
+yay -S alacritty xterm thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g firefox chromium nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc
 clear
 
 echo 'Pulseaudio apps'
-yay -S pavucontrol pnmixer mictray nm-applet
+yay -S pavucontrol pnmixer mictray nm-connection-editor network-manager-applet
 clear
 
 echo 'Wine and dependencies'
@@ -54,7 +54,7 @@ yay -S discord dino
 clear
 
 echo 'Gamemoded*'
-yay -S meson dbus
+yay -S meson dbus cpupower
 clear
 
 echo 'Proton-GE'
