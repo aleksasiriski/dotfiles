@@ -608,7 +608,7 @@ pre_installation() {
 
 	print s 'Format disk' && \
 	sgdisk --zap-all "/dev/$conf_disk" &>> "$CONF_LOGFILE" &&\
-	sgdisk "/dev/$conf_disk" -o -n 1:0:512M -t 1:ef00 -N 2 -t "2:8e00" &>> "$CONF_LOGFILE" && \
+	sgdisk "/dev/$conf_disk" -o -n 1:0:512M -t 1:ef00 -N 2 -t "2:8303" &>> "$CONF_LOGFILE" && \
 
 	print s 'Format boot partition' && \
 	yes | mkfs.fat -F32 "/dev/${conf_disk}${part_prefix}1" &>> "$CONF_LOGFILE" && \
