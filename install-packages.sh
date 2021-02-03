@@ -13,10 +13,6 @@ echo 'Xorg, Intel and Amd GPU drivers'
 yay -S xorg xorg-xinit mesa lib32-mesa xf86-video-amdgpu vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader vulkan-intel intel-media-driver lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau libva-utils
 clear
 
-echo 'intel-media-sdk (Intel QuickSync for ffmpeg, handbrake)'
-yay -S intel-media-sdk
-clear
-
 echo '!!! Old intel drivers (only if necessary !!!'
 yay -Rns intel-media-driver
 yay -S xf86-video-intel libva-intel-driver
