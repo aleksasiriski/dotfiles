@@ -60,7 +60,7 @@ yay -S obs-studio kdenlive breeze handbrake gimp
 clear
 
 echo 'qBittorrent & balenaEtcher'
-yay -S qbittorrent balena-etcher
+yay -S qbittorrent etcher-bin
 clear
 
 echo 'LibreOffice'
