@@ -23,7 +23,7 @@ yay -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth bluez blu
 clear
 
 echo 'WM'
-yay -S bspwm sxhkd rofi picom polybar dunst wmrc flameshot
+yay -S bspwm sxhkd rofi rofi-calc picom polybar dunst wmrc flameshot
 clear
 
 echo 'Display manager & Polkit'
