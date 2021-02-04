@@ -662,7 +662,7 @@ END
 END
 	} && \
 
-	sed -i 's/^MODULES=(.*)/MODULES=(amdgpu i915)/' /mnt/etc/mkinitcpio.conf
+	sed -i 's/^MODULES=(.*)/MODULES=(i915 amdgpu)/' /mnt/etc/mkinitcpio.conf
 	arch-chroot /mnt mkinitcpio -P &>> "$CONF_LOGFILE" && \
 
 	print s 'Configure pacman and makepkg' && \
