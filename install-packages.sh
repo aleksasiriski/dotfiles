@@ -18,12 +18,17 @@ yay -Rns intel-media-driver
 yay -S xf86-video-intel libva-intel-driver
 clear
 
-echo 'Pulseaudio & Bluetooth'
-yay -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth bluez bluez-plugins bluez-tools bluez-utils blueberry
+echo 'Pulseaudio (Pipewire is next option)'
+yay -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth
 clear
 
-echo 'Replace Pulseaudio with Pipewire'
+echo 'Pipewire'
+yay -Rns pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth
 yay -S pipewire pipewire-alsa pipewire-jack pipewire-pulse
+clear
+
+echo 'Bluetooth'
+yay -S bluez bluez-plugins bluez-tools bluez-utils blueberry
 clear
 
 echo 'WM'
