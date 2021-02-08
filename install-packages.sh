@@ -1,8 +1,14 @@
 #!/bin/sh
 echo 'Installing packages...'
 
+echo 'Reflector and Pacman Hook'
+yay -S reflector reflector-mirrorlist-update
+sudo systemctl enable --now reflector.service
+sudo systemctl enable --now reflector.timer
+clear
+
 echo 'Better CLI tools'
-yay -S neofetch htop bashtop micro calc autocutsel wget curl git github-cli
+yay -S neofetch htop bashtop micro-bin calc autocutsel wget curl git github-cli
 clear
 
 echo 'ZSH'
