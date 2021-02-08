@@ -67,7 +67,7 @@ yay -S steam lutris heroic-games-launcher-bin parsec mangohud goverlay
 clear
 
 echo 'Social'
-yay -S discord dino 
+yay -S discord_arch_electron dino 
 clear
 
 echo 'Video production'
