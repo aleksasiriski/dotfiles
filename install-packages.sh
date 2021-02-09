@@ -1,4 +1,10 @@
 #!/bin/sh
+
+echo 'User: '
+read username
+sudo usermod -aG audio,disk,floppy,input,kvm,optical,scanner,storage,video $username
+echo 'Added '$username' to groups'
+
 echo 'Installing packages...'
 
 echo 'Reflector and Pacman Hook'
@@ -30,7 +36,7 @@ clear
 
 echo 'Pipewire'
 paru -Rns pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth
-paru -S pipewire pipewire-alsa pipewire-jack pipewire-pulse
+paru -S pipewire pipewire-alsa pipewire-jack pipewire-pulse catia
 clear
 
 echo 'Bluetooth'
