@@ -19,7 +19,7 @@ echo 'Xorg, Intel and Amd GPU drivers'
 yay -S xorg xorg-xinit mesa lib32-mesa xf86-video-amdgpu vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader vulkan-intel intel-media-driver lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau libva-utils
 clear
 
-echo '!!! Old intel drivers (only if necessary !!!'
+echo '!!! Old intel drivers (only if necessary) !!!'
 yay -Rns intel-media-driver
 yay -S xf86-video-intel libva-intel-driver
 clear
@@ -51,10 +51,10 @@ yay -S noto-fonts noto-fonts-emoji papirus-icon-theme qogir-icon-theme materia-g
 clear
 
 echo 'Standard GUI apps'
-yay -S alacritty xterm thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver firefox chromium nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc cpu-x
+yay -S alacritty xterm thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver firefox nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc cpu-x
 clear
 
-echo 'Pulseaudio apps'
+echo 'Systray apps'
 yay -S pavucontrol pnmixer mictray nm-connection-editor network-manager-applet
 clear
 
@@ -63,7 +63,7 @@ yay -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-liblda
 clear
 
 echo 'Gaming'
-yay -S steam lutris heroic-games-launcher-bin parsec mangohud goverlay
+yay -S steam lutris heroic-games-launcher-bin parsec-bin mangohud goverlay
 clear
 
 echo 'Social'
