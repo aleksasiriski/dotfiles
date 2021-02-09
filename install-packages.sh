@@ -89,6 +89,7 @@ clear
 
 echo 'Proton-GE'
 cd ~
+rm cproton.sh
 wget https://raw.githubusercontent.com/Termuellinator/ProtonUpdater/master/cproton.sh
 chmod +x cproton.sh
 ./cproton.sh
