@@ -12,7 +12,7 @@ APPS='dunst
       mictray
       nm-applet --indicator
       obs --startreplaybuffer
-      steam -silent
+      steam-native -silent
       discord
       '
 
