@@ -36,7 +36,7 @@ clear
 
 echo 'Pipewire'
 paru -Rns pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth
-paru -S pipewire pipewire-alsa pipewire-jack pipewire-pulse catia
+paru -S pipewire pipewire-alsa pipewire-pulse pipewire-jack pipewire-jack-dropin catia
 clear
 
 echo 'Bluetooth'
