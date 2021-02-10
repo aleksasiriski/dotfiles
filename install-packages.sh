@@ -2,7 +2,7 @@
 
 echo 'User: '
 read username
-sudo usermod -aG audio,disk,floppy,input,kvm,optical,scanner,storage,video $username
+sudo usermod -aG audio,disk,floppy,input,kvm,optical,scanner,storage,video,lp $username
 echo 'Added '$username' to groups'
 
 echo 'Installing packages...'
@@ -69,7 +69,7 @@ paru -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libld
 clear
 
 echo 'Gaming'
-paru -S steam lutris heroic-games-launcher-bin parsec-bin mangohud goverlay
+paru -S steam steam-native-runtime lutris heroic-games-launcher-bin parsec-bin mangohud goverlay
 clear
 
 echo 'Social'
