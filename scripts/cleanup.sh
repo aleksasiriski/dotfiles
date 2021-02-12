@@ -1,4 +1,4 @@
 #!/bin/sh
-yay -Syu
-yay -Rns $(yay -Qtdq)
-yay -Sc
+paru -Syu
+paru -Rns $(paru -Qtdq)
+paru -Sc
