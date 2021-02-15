@@ -14,7 +14,7 @@ sudo systemctl enable --now reflector.timer
 clear
 
 echo 'Better CLI tools'
-paru -S neofetch htop bashtop micro-bin calc autocutsel wget curl git github-cli
+paru -S neofetch htop bashtop micro calc autocutsel wget curl git github-cli
 clear
 
 echo 'ZSH'
