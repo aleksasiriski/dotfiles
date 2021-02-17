@@ -57,7 +57,7 @@ paru -S noto-fonts noto-fonts-emoji noto-fonts-extra ttf-twemoji-color papirus-i
 clear
 
 echo 'Standard GUI apps'
-paru -S alacritty xterm thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver firefox nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc cpu-x
+paru -S alacritty devour xterm thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver firefox nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc cpu-x
 clear
 
 echo 'Systray apps'
