@@ -117,7 +117,7 @@ alias sshpanel='TERM=xterm ssh aleksa@panel.lavelektronik.com'
 # server
 alias cdsystemd='cd /usr/lib/systemd/system/'
 alias virsh='sudo virsh'
-alias lgc='devour looking-glass-client -s -F'
+alias lgc='devour looking-glass-client -F'
 alias vlgc='sudo virsh start win10 && lgc'
 alias rsd='sudo systemctl restart display-manager'
 alias bat='headsetcontrol -b'
