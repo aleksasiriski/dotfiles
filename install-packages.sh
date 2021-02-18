@@ -7,8 +7,8 @@ echo 'Added '$username' to groups'
 
 echo 'Installing packages...'
 
-echo 'Reflector and Pacman Hook'
-paru -S reflector reflector-mirrorlist-update
+echo 'CCache, Reflector & Pacman Hook'
+paru -S ccache reflector reflector-mirrorlist-update
 sudo systemctl enable --now reflector.service
 sudo systemctl enable --now reflector.timer
 clear
