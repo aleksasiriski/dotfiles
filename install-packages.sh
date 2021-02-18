@@ -53,7 +53,7 @@ sudo systemctl enable lightdm
 clear
 
 echo 'Fonts, icons & themes'
-paru -S noto-fonts noto-fonts-emoji noto-fonts-extra ttf-twemoji-color papirus-icon-theme qogir-icon-theme materia-gtk-theme lxappearance
+paru -S noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-color ttf-symbola  papirus-icon-theme qogir-icon-theme materia-gtk-theme lxappearance
 clear
 
 echo 'Standard GUI apps'
