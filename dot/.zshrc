@@ -69,7 +69,6 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # Aliases
 alias pacman='sudo pacman'
-alias parus='paru -Syu'
 alias sheesh='paru -Rns'
 
 alias ls='ls --color=auto'
@@ -111,6 +110,7 @@ alias shutdown='sh $HOME/shutdown.sh'
 alias sshrouter='ssh admin@router.lavelektronik.com'
 alias sshserver='ssh media@server.lavelektronik.com'
 alias sshhtpc='ssh htpc@htpc.lavelektronik.com'
+alias sshnode='ssh node@node.lavelektronik.com'
 alias sshmail='ssh aleksa@mail.lavelektronik.com'
 alias sshpanel='TERM=xterm ssh aleksa@panel.lavelektronik.com'
 
