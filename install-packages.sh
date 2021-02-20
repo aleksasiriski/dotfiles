@@ -22,12 +22,11 @@ paru -S zsh zsh-autosuggestions zsh-syntax-highlighting autojump
 clear
 
 echo 'Xorg, Intel and Amd GPU drivers'
-paru -S xorg xorg-xinit mesa lib32-mesa xf86-video-amdgpu vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader vulkan-intel intel-media-driver lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau libva-utils
+paru -S xorg xorg-xinit mesa lib32-mesa xf86-video-amdgpu vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader vulkan-intel intel-media-driver libva-intel-driver lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau libva-utils
 clear
 
 echo '!!! Old intel drivers (only if necessary) !!!'
-paru -Rns intel-media-driver
-paru -S xf86-video-intel libva-intel-driver
+paru -S xf86-video-intel
 clear
 
 echo 'Pulseaudio (Pipewire is next option)'
