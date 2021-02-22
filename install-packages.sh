@@ -72,7 +72,7 @@ paru -S steam steam-native-runtime lutris heroic-games-launcher-bin parsec-bin m
 clear
 
 echo 'Social'
-paru -S discord_arch_electron dino 
+paru -S mattermost-desktop-bin dino discord
 clear
 
 echo 'Video production'

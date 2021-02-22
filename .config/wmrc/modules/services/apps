@@ -11,8 +11,10 @@ APPS='dunst
       pnmixer
       mictray
       nm-applet --indicator
+      scream -i br0
       obs --startreplaybuffer
       steam-native -silent
+      mattermost-desktop
       discord
       '
 
