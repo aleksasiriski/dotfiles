@@ -39,7 +39,10 @@ paru -S pipewire pipewire-alsa pipewire-pulse pipewire-jack pipewire-jack-dropin
 clear
 
 echo 'Bluetooth'
-paru -S bluez bluez-plugins bluez-tools bluez-utils blueberry
+paru -S bluez bluez-plugins bluez-utils blueberry
+sudo systemctl enable bluetooth.service
+sudo systemctl enable bluetooth-autoconnect.service
+systemctl --user enable pulseaudio-bluetooth-autoconnect
 clear
 
 echo 'WM'
