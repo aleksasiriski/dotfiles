@@ -29,12 +29,7 @@ echo '!!! Old intel drivers (only if necessary) !!!'
 paru -S xf86-video-intel
 clear
 
-echo 'Pulseaudio (Pipewire is next option)'
-paru -S pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth
-clear
-
 echo 'Pipewire'
-paru -Rns pulseaudio pulseaudio-alsa pulseaudio-jack pulseaudio-bluetooth
 paru -S pipewire pipewire-alsa pipewire-pulse pipewire-jack pipewire-jack-dropin catia
 clear
 
