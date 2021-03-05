@@ -14,7 +14,7 @@ sudo systemctl enable --now reflector.timer
 clear
 
 echo 'Better CLI tools'
-paru -S neofetch htop bashtop micro calc autocutsel wget curl git github-cli
+paru -S neofetch htop bashtop micro calc autocutsel wget curl git github-cli ranger cava
 clear
 
 echo 'ZSH'
@@ -38,6 +38,10 @@ clear
 
 echo 'Window Manager'
 paru -S bspwm sxhkd rofi rofi-calc picom polybar dunst wmrc flameshot
+clear
+
+echo 'Wayland Window Manager'
+paru -S sway waybar wofi mako i3status
 clear
 
 echo 'Display manager & Polkit'
