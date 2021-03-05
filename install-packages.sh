@@ -3,7 +3,7 @@
 echo 'User: '
 read username
 sudo usermod -aG audio,disk,floppy,input,kvm,optical,scanner,storage,video,lp $username
-echo 'Added '$username' to groups'
+echo 'Added '$username' to needed groups'
 
 echo 'Installing packages...'
 
@@ -25,10 +25,6 @@ echo 'Xorg, Intel and Amd GPU drivers'
 paru -S xorg xorg-xinit mesa lib32-mesa xf86-video-amdgpu vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader vulkan-intel intel-media-driver libva-intel-driver lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau libva-utils
 clear
 
-echo '!!! Old intel drivers (only if necessary) !!!'
-paru -S xf86-video-intel
-clear
-
 echo 'Pipewire'
 paru -S pipewire pipewire-alsa pipewire-pulse pipewire-jack pipewire-jack-dropin catia
 clear
@@ -40,7 +36,7 @@ sudo systemctl enable bluetooth-autoconnect.service
 systemctl --user enable pulseaudio-bluetooth-autoconnect
 clear
 
-echo 'WM'
+echo 'Window Manager'
 paru -S bspwm sxhkd rofi rofi-calc picom polybar dunst wmrc flameshot
 clear
 
@@ -70,11 +66,11 @@ paru -S steam steam-native-runtime lutris heroic-games-launcher-bin parsec-bin m
 clear
 
 echo 'Social'
-paru -S mattermost-desktop-bin dino discord
+paru -S dino discord
 clear
 
-echo 'Video production'
-paru -S obs-studio kdenlive breeze handbrake gimp
+echo 'Video & Audio production'
+paru -S gimp audacity obs-studio kdenlive breeze handbrake
 clear
 
 echo 'qBittorrent & balenaEtcher'
