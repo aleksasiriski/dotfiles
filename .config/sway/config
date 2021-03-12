@@ -70,6 +70,7 @@ exec xfce4-clipman
 exec pnmixer
 exec mictray
 exec nm-applet --indicator
+exec obs --startreplaybuffer
 exec steam-native -silent
 exec dino --gapplication-service
 exec discord

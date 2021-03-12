@@ -10,7 +10,6 @@ APPS='dunst
       pnmixer
       mictray
       nm-applet --indicator
-      obs --startreplaybuffer
       steam-native -silent
       dino --gapplication-service
       discord

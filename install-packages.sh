@@ -69,7 +69,7 @@ paru -S dino discord
 clear
 
 echo 'Video & Audio production'
-paru -S gimp audacity obs-studio kdenlive breeze handbrake
+paru -S gimp audacity obs-studio-wayland wlrobs-hg kdenlive breeze handbrake
 clear
 
 echo 'qBittorrent & balenaEtcher'
