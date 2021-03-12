@@ -1,27 +1,45 @@
-output DP-1 resolution 1920x1080 position 0,1080
-output DP-1 bg /storage/Stvari/Slike/Wallpapers/archlinux.png fill
-output HDMI-A-3 resolution 1920x1080 position 0,0
-output HDMI-A-3 bg /storage/Stvari/Slike/Wallpapers/disenchantment.jpg fill
-output * adaptive_sync on
-
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-input * {
-    xkb_layout "gb"
-}
-
-input "1739:32402:DELL0767:00_06CB:7E92_Touchpad" {
-    dwt enabled
-    tap enabled
-}
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
 
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
+
 # Your preferred terminal emulator
 set $term alacritty
+
 # Your preferred application launcher
-set $menu wofi -c ~/.config/wofi/config -s ~/.config/wofi/style.css -I
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+# set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu wofi --show=drun --lines=5 --prompt=""
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+output DP-1 resolution 1920x1080@144Hz position 0,1080
+output DP-1 bg /storage/Stvari/Slike/Wallpapers/archlinux.png fill
+output HDMI-A-3 resolution 1920x1080@75Hz position 0,0
+output HDMI-A-3 bg /storage/Stvari/Slike/Wallpapers/disenchantment.jpg fill
+output * adaptive_sync on
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
 
 ### Gnome settings
 set $gnome-schema org.gnome.desktop.interface
@@ -38,35 +56,23 @@ exec_always {
     gsettings set org.gnome.desktop.default-applications.terminal exec-arg '-e'
 }
 
-
-### Idle configuration
-exec swayidle -w \
-          timeout 300 'swaylock -f' \
-          timeout 305 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-          before-sleep 'swaylock -f'
-
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+### Window config
+for_window [app_id=zoom] floating enable
+for_window [title="Firefox — Sharing Indicator"] floating enable
+for_window [app_id=".*"] border pixel 2
 
 ### Autostart
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako
 exec persway -a -o 1
 exec xfce4-power-manager
-exec xfc4-clipman
+exec xfce4-clipman
 exec pnmixer
 exec mictray
 exec nm-applet --indicator
 exec steam-native -silent
 exec dino --gapplication-service
 exec discord
-
-### Window config
-for_window [app_id=zoom] floating enable
-for_window [title="Firefox — Sharing Indicator"] floating enable
-for_window [app_id=".*"] border pixel 2
 
 ### Key bindings
 #
@@ -81,8 +87,13 @@ for_window [app_id=".*"] border pixel 2
     # Start your launcher
     bindsym $mod+r exec $menu
 
-    # lock screen
-    bindsym $mod+l exec swaylock -f
+    bindsym $mod+e exec thunar
+    bindsym $mod+b exec firefox
+    bindsym $mod+Shift+b exec firefox -private-window
+    bindsym $mod+c exec subl
+    bindsym $mod+v exec code
+    bindsym $mod+g exec lutris
+    bindsym $mod+d exec discord
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -95,15 +106,14 @@ for_window [app_id=".*"] border pixel 2
     bindsym $mod+Control+r reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+x exec swaynag -t warning -m 'End session?' -b 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+x exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
-    bindsym $mod+e exec thunar
-    bindsym $mod+b exec firefox
-    bindsym $mod+c exec subl
-    bindsym $mod+v exec code
-    bindsym $mod+g exec lutris
-    bindsym $mod+m exec mattermost-desktop
-    bindsym $mod+d exec discord
+#
+# Screenshots
+#
+    bindsym $mod+Shift+s exec grimshot save area
+    bindsym $mod+p       exec grimshot save output
+
 #
 # Multimedia keys
 #
@@ -121,23 +131,15 @@ for_window [app_id=".*"] border pixel 2
     bindsym --locked XF86AudioPrev exec playerctl previous
 
 #
-# Screenshots
-#
-#    bindsym $mod+p       exec grimshot save active
-    bindsym $mod+Shift+s exec grimshot save area
-    bindsym $mod+p       exec grimshot save output
-#    bindsym $mod+Ctrl+p  exec grimshot save window
-
-#
 # Moving around:
 #
-    # Or use $mod+[up|down|left|right]
+    # Move your focus around
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
-    # Move focussed workspace
+    # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
@@ -172,28 +174,11 @@ for_window [app_id=".*"] border pixel 2
 #
 # Layout stuff:
 #
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-#    bindsym $mod+h splith
-#    bindsym $mod+v splitv
-
-    # Switch the current container between different layout styles
-#    bindsym $mod+s layout stacking
-#    bindsym $mod+t layout tabbed
-#    bindsym $mod+e layout toggle split
-
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
-
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
-
-    # Move focus to the parent container
-    # bindsym $mod+a focus parent
 #
 # Scratchpad:
 #
@@ -206,56 +191,19 @@ for_window [app_id=".*"] border pixel 2
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
-#    bindsym $mod+r mode "resize"
 
-#mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-#    bindsym Left resize shrink width 10px
-#    bindsym Down resize grow height 10px
-#    bindsym Up resize shrink height 10px
-#    bindsym Right resize grow width 10px
+input * {
+    xkb_layout "us"
+}
 
-    # Return to default mode
-#    bindsym Return mode "default"
-#    bindsym Escape mode "default"
-#}
+# Personal settings
+focus_follows_mouse no
+gaps inner 10
+default_border pixel 3
+exec_always fcitx5 -d --replace
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
 bar {
     swaybar_command waybar
 }
-
-#
-# gaps
-#
-gaps inner 5
-smart_gaps off
-
-#
-# Titlebars
-#
-font pango:KanitMedium 10
-default_border pixel 2
-default_floating_border normal
-hide_edge_borders none
-titlebar_border_thickness 2
-titlebar_padding 5 2
-#
-# Colors #93cee9
-#
-# class                     border  backgr. text  indicator child_border
-    client.focused          #5e81ac #2e3440 #8fbcbb #5e81ac #5e81ac
-    client.focused_inactive #3b4252 #3b4252 #5e81ac #4c566a #4c566a
-    client.unfocused        #434c5e #434c5e #5e81ac #4c566a #4c566a
-    client.urgent           #bf616a #bf616a #bf616a #d08770 #d08770
 
 include /etc/sway/config.d/*

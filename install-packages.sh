@@ -36,17 +36,12 @@ sudo systemctl enable bluetooth-autoconnect.service
 systemctl --user enable pulseaudio-bluetooth-autoconnect
 clear
 
-echo 'Window Manager'
+echo 'XOrg Window Manager - bspwm'
 paru -S bspwm sxhkd rofi rofi-calc picom polybar dunst wmrc flameshot
 clear
 
-echo 'Wayland Window Manager'
-paru -S sway waybar wofi mako i3status
-clear
-
-echo 'Display manager & Polkit'
-paru -S lightdm lightdm-slick-greeter polkit-gnome
-sudo systemctl enable lightdm
+echo 'Wayland Window Manager - Sway'
+paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland
 clear
 
 echo 'Fonts, icons & themes'
@@ -54,7 +49,7 @@ paru -S noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-
 clear
 
 echo 'Standard GUI apps'
-paru -S alacritty devour xterm thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver firefox nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc cpu-x
+paru -S polkit-gnome alacritty devour xterm thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver firefox nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc cpu-x
 clear
 
 echo 'Systray apps'

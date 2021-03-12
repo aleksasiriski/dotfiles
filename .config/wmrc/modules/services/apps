@@ -4,17 +4,15 @@
 
 APPS='dunst
       flameshot
-      dino --gapplication-service
       xfce4-power-manager
       xfce4-clipman
       nitrogen --restore
       pnmixer
       mictray
       nm-applet --indicator
-      scream -i br0
       obs --startreplaybuffer
       steam-native -silent
-      mattermost-desktop
+      dino --gapplication-service
       discord
       '
 
