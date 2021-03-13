@@ -41,7 +41,7 @@ paru -S bspwm sxhkd rofi rofi-calc picom polybar dunst wmrc flameshot
 clear
 
 echo 'Wayland Window Manager - Sway'
-paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland
+paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot
 clear
 
 echo 'Fonts, icons & themes'
