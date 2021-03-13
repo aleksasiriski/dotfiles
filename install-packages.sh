@@ -49,7 +49,7 @@ paru -S noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-
 clear
 
 echo 'Standard GUI apps'
-paru -S polkit-gnome gpaste wgetpaste alacritty devour thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver firefox-wayland-hg sublime-text-3 code imv mpv vlc cpu-x
+paru -S polkit-gnome gpaste wgetpaste alacritty devour thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver fedora-firefox-wayland-bin sublime-text-3 code imv mpv vlc cpu-x
 clear
 
 echo 'Systray apps'
