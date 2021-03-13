@@ -19,8 +19,6 @@ set $term alacritty
 set $menu wofi --show=drun --lines=5 --prompt=""
 
 ### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output DP-1 resolution 1920x1080@144Hz position 0,1080
 output DP-1 bg /storage/Stvari/Slike/Wallpapers/archlinux.png fill
 output HDMI-A-3 resolution 1920x1080@75Hz position 0,0
@@ -59,18 +57,14 @@ exec_always {
 ### Window config
 for_window [app_id=zoom] floating enable
 for_window [title="Firefox — Sharing Indicator"] floating enable
-for_window [app_id=".*"] border pixel 2
+for_window [app_id=".*"] border pixel 1
 
 ### Autostart
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako
 exec persway -a -o 1
-exec xfce4-power-manager
-exec xfce4-clipman
-exec pnmixer
 exec mictray
 exec nm-applet --indicator
-exec obs --startreplaybuffer
 exec steam-native -silent
 exec dino --gapplication-service
 exec discord
@@ -112,8 +106,8 @@ exec discord
 #
 # Screenshots
 #
-    bindsym $mod+Shift+s exec grimshot save area
-    bindsym $mod+p       exec grimshot save output
+    bindsym $mod+Shift+s exec --notify grimshot copy area
+    bindsym $mod+p       exec grimshot copy output
 
 #
 # Multimedia keys
@@ -199,8 +193,8 @@ input * {
 
 # Personal settings
 focus_follows_mouse no
-gaps inner 10
-default_border pixel 3
+gaps inner 5
+default_border pixel 1
 exec_always fcitx5 -d --replace
 
 bar {

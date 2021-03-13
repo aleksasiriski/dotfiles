@@ -14,7 +14,7 @@ sudo systemctl enable --now reflector.timer
 clear
 
 echo 'Better CLI tools'
-paru -S neofetch htop bashtop micro calc autocutsel wget curl git github-cli ranger cava
+paru -S neofetch htop bashtop micro wget curl git github-cli
 clear
 
 echo 'ZSH'
@@ -49,11 +49,11 @@ paru -S noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-
 clear
 
 echo 'Standard GUI apps'
-paru -S polkit-gnome alacritty devour xterm thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver firefox nitrogen xfce4-clipman-plugin xfce4-power-manager sublime-text-3 code imv mpv vlc cpu-x
+paru -S polkit-gnome gpaste wgetpaste alacritty devour thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver firefox-wayland-hg sublime-text-3 code imv mpv vlc cpu-x
 clear
 
 echo 'Systray apps'
-paru -S pavucontrol pnmixer mictray nm-connection-editor network-manager-applet
+paru -S pavucontrol mictray nm-connection-editor network-manager-applet
 clear
 
 echo 'Wine and dependencies'
@@ -69,7 +69,7 @@ paru -S dino discord
 clear
 
 echo 'Video & Audio production'
-paru -S obs-studio gimp audacity kdenlive breeze handbrake
+paru -S obs-studio-wayland wlrobs-hg gimp audacity kdenlive breeze handbrake
 clear
 
 echo 'qBittorrent & balenaEtcher'
