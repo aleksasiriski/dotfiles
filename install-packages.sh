@@ -26,7 +26,8 @@ paru -S xorg xorg-xinit mesa lib32-mesa xf86-video-amdgpu vulkan-radeon vulkan-i
 clear
 
 echo 'Pipewire'
-paru -S pipewire pipewire-alsa pipewire-pulse pipewire-jack pipewire-jack-dropin catia
+paru -S pipewire libpipewire02 pipewire-media-session pipewire-alsa pipewire-pulse pipewire-jack pipewire-jack-dropin catia
+systemctl enable --user pipewire-media-session.service
 clear
 
 echo 'Bluetooth'
@@ -69,11 +70,11 @@ paru -S dino discord
 clear
 
 echo 'Video & Audio production'
-paru -S obs-studio-wayland wlrobs-hg gimp audacity kdenlive breeze handbrake
+paru -S obs-studio-wayland obs-xdg-portal-git wlrobs-hg gimp audacity kdenlive breeze handbrake
 clear
 
-echo 'qBittorrent & balenaEtcher'
-paru -S qbittorrent etcher-bin
+echo 'deluge & balenaEtcher'
+paru -S deluge-gtk etcher-bin
 clear
 
 echo 'LibreOffice'
