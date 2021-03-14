@@ -8,7 +8,8 @@ echo 'Added '$username' to needed groups'
 echo 'Installing packages...'
 
 echo 'CCache, Reflector & Pacman Hook'
-paru -S ccache reflector reflector-mirrorlist-update --noconfirm
+paru -S ccache ananicy reflector reflector-mirrorlist-update --noconfirm
+sudo systemctl enable --now ananicy.service
 sudo systemctl enable --now reflector.service
 sudo systemctl enable --now reflector.timer
 clear
