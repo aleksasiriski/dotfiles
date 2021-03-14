@@ -8,21 +8,23 @@ echo 'Added '$username' to needed groups'
 echo 'Installing packages...'
 
 echo 'CCache, Reflector & Pacman Hook'
-paru -S ccache reflector reflector-mirrorlist-update
+paru -S ccache reflector reflector-mirrorlist-update --noconfirm
 sudo systemctl enable --now reflector.service
 sudo systemctl enable --now reflector.timer
 clear
 
 echo 'Better CLI tools'
-paru -S neofetch htop bashtop micro wget curl git github-cli
+paru -S neofetch htop bashtop micro wget curl git github-cli --noconfirm
 clear
 
 echo 'ZSH'
-paru -S zsh zsh-autosuggestions zsh-syntax-highlighting autojump
+paru -S zsh zsh-autosuggestions zsh-syntax-highlighting autojump --noconfirm
 clear
 
 echo 'Xorg, Intel and Amd GPU drivers'
-paru -S xorg xorg-xinit mesa lib32-mesa xf86-video-amdgpu vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader vulkan-intel intel-media-driver libva-intel-driver lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau libva-utils
+paru -S xorg xorg-xinit mesa lib32-mesa libva-utils --noconfirm
+paru -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
+paru -S vulkan-intel intel-media-driver libva-intel-driver --noconfirm
 clear
 
 echo 'Pipewire'
@@ -37,12 +39,12 @@ sudo systemctl enable bluetooth-autoconnect.service
 systemctl --user enable pulseaudio-bluetooth-autoconnect
 clear
 
-echo 'XOrg Window Manager - bspwm'
-paru -S bspwm sxhkd rofi rofi-calc picom polybar dunst wmrc flameshot
+echo 'X11 Window Manager - bspwm'
+paru -S bspwm sxhkd rofi rofi-calc picom polybar dunst wmrc flameshot xfce4-clipman-plugin firefox
 clear
 
 echo 'Wayland Window Manager - Sway'
-paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot
+paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot gpaste wgetpaste fedora-firefox-wayland-bin
 clear
 
 echo 'Fonts, icons & themes'
@@ -50,7 +52,7 @@ paru -S noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-
 clear
 
 echo 'Standard GUI apps'
-paru -S polkit-gnome gpaste wgetpaste alacritty devour thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver fedora-firefox-wayland-bin sublime-text-3 code imv mpv vlc cpu-x
+paru -S polkit-gnome alacritty devour thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver sublime-text-3 code imv mpv vlc cpu-x
 clear
 
 echo 'Systray apps'
@@ -62,7 +64,7 @@ paru -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libld
 clear
 
 echo 'Gaming'
-paru -S steam steam-native-runtime lutris heroic-games-launcher-bin parsec-bin mangohud goverlay
+paru -S steam steam-native-runtime lutris heroic-games-launcher-bin
 clear
 
 echo 'Social'
@@ -82,7 +84,7 @@ paru -S libreoffice-fresh
 clear
 
 echo 'Gamemoded*'
-paru -S meson dbus cpupower
+paru -S meson dbus cpupower --noconfirm
 sudo systemctl enable cpupower
 clear
 
