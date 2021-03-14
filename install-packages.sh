@@ -70,7 +70,7 @@ paru -S dino discord
 clear
 
 echo 'Video & Audio production'
-paru -S obs-studio-wayland obs-xdg-portal-git wlrobs-hg gimp audacity kdenlive breeze handbrake
+paru -S obs-studio-wayland wlrobs-hg gimp audacity kdenlive breeze handbrake
 clear
 
 echo 'deluge & balenaEtcher'
