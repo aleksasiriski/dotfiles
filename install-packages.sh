@@ -44,7 +44,7 @@ paru -S bspwm sxhkd rofi rofi-calc picom polybar dunst wmrc flameshot xfce4-clip
 clear
 
 echo 'Wayland Window Manager - Sway'
-paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot gpaste wgetpaste fedora-firefox-wayland-bin
+paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot clipman fedora-firefox-wayland-bin
 clear
 
 echo 'Fonts, icons & themes'
