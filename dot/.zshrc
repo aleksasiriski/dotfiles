@@ -62,7 +62,6 @@ bindkey "\e\d"  undo
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 source /usr/share/autojump/autojump.zsh 2>/dev/null
-source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -117,9 +116,6 @@ alias sshpanel='TERM=xterm ssh aleksa@panel.lavelektronik.com'
 # server
 alias cdsystemd='cd /usr/lib/systemd/system/'
 alias virsh='sudo virsh'
-alias lgc='devour looking-glass-client -F'
-alias vlgc='sudo virsh start win10 && lgc'
-alias rsd='sudo systemctl restart display-manager'
 alias bat='headsetcontrol -b'
 
 # Startup
