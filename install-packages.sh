@@ -30,7 +30,7 @@ clear
 
 echo 'Pipewire'
 paru -S pipewire libpipewire02 pipewire-media-session pipewire-alsa pipewire-pulse pipewire-jack pipewire-jack-dropin catia
-systemctl enable --user pipewire-media-session.service
+systemctl --user enable pipewire pipewire-pulse pipewire-media-session
 clear
 
 echo 'Bluetooth'
@@ -53,7 +53,7 @@ paru -S noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-
 clear
 
 echo 'Standard GUI apps'
-paru -S polkit-gnome alacritty devour thunar gvfs gvfs-smb gvfs-nfs gvfs-mtp ntfs-3g xarchiver sublime-text-3 code imv mpv vlc cpu-x
+paru -S polkit-gnome alacritty devour thunar gvfs gvfs-mtp ntfs-3g xarchiver sublime-text-3 code imv mpv vlc cpu-x
 clear
 
 echo 'Systray apps'
@@ -73,7 +73,7 @@ paru -S dino discord
 clear
 
 echo 'Video & Audio production'
-paru -S obs-studio-wayland wlrobs-hg gimp audacity kdenlive breeze handbrake
+paru -S obs-studio-wayland wlrobs gimp audacity kdenlive breeze handbrake
 clear
 
 echo 'deluge & balenaEtcher'
