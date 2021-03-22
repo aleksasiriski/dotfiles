@@ -69,6 +69,7 @@ exec mictray
 exec nm-applet --indicator
 exec steam-native -silent
 exec dino --gapplication-service
+exec element-desktop --hidden
 exec discord
 
 ### Key bindings
