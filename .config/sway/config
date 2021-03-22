@@ -63,6 +63,8 @@ for_window [app_id=".*"] border pixel 1
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako
 exec persway -a -o 1
+exec wl-paste -t text --watch clipman store
+exec pulseeffects --gapplication-service
 exec mictray
 exec nm-applet --indicator
 exec steam-native -silent
@@ -106,7 +108,7 @@ exec discord
 #
 # Screenshots
 #
-    bindsym $mod+Shift+s exec --notify grimshot copy area
+    bindsym $mod+Shift+s exec grimshot copy area
     bindsym $mod+p       exec grimshot copy output
 
 #

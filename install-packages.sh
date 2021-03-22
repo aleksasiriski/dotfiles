@@ -29,7 +29,7 @@ paru -S vulkan-intel intel-media-driver libva-intel-driver --noconfirm
 clear
 
 echo 'Pipewire'
-paru -S pipewire libpipewire02 pipewire-media-session pipewire-alsa pipewire-pulse pipewire-jack pipewire-jack-dropin catia
+paru -S pipewire libpipewire02 pipewire-media-session pipewire-alsa pipewire-pulse pipewire-jack pipewire-jack-dropin catia pulseeffects
 systemctl --user enable pipewire pipewire-pulse pipewire-media-session
 clear
 
@@ -40,12 +40,8 @@ sudo systemctl enable bluetooth-autoconnect.service
 systemctl --user enable pulseaudio-bluetooth-autoconnect
 clear
 
-echo 'X11 Window Manager - bspwm'
-paru -S bspwm sxhkd rofi rofi-calc picom polybar dunst wmrc flameshot xfce4-clipman-plugin firefox
-clear
-
 echo 'Wayland Window Manager - Sway'
-paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot clipman fedora-firefox-wayland-bin
+paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot wl-clipboard clipman fedora-firefox-wayland-bin
 clear
 
 echo 'Fonts, icons & themes'

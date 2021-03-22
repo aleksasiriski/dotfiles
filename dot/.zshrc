@@ -108,10 +108,10 @@ alias shutdown='sh $HOME/shutdown.sh'
 # ssh
 alias sshrouter='ssh admin@router.lavelektronik.com'
 alias sshserver='ssh media@server.lavelektronik.com'
-alias sshhtpc='ssh htpc@htpc.lavelektronik.com'
 alias sshnode='ssh node@node.lavelektronik.com'
 alias sshmail='ssh aleksa@mail.lavelektronik.com'
 alias sshpanel='TERM=xterm ssh aleksa@panel.lavelektronik.com'
+alias sshupload='TERM=xterm ssh root@upload.lavelektronik.com'
 
 # server
 alias cdsystemd='cd /usr/lib/systemd/system/'

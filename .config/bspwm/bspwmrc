@@ -1,5 +1,0 @@
-#! /usr/bin/env dash
-xrandr --output DisplayPort-0 --mode 1920x1080 --rate 144 &
-xrandr --output HDMI-A-2 --mode 1920x1080 --rate 75 &
-wmrc &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)
