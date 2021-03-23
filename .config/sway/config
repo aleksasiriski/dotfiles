@@ -89,7 +89,7 @@ exec discord
     bindsym $mod+b exec firefox
     bindsym $mod+Shift+b exec firefox -private-window
     bindsym $mod+c exec subl
-    bindsym $mod+v exec code
+    bindsym $mod+v exec vscodium
     bindsym $mod+g exec lutris
     bindsym $mod+m exec element-desktop
     bindsym $mod+d exec discord
