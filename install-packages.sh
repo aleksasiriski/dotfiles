@@ -76,8 +76,8 @@ echo 'deluge & balenaEtcher'
 paru -S deluge-gtk etcher-bin
 clear
 
-echo 'LibreOffice'
-paru -S libreoffice-fresh
+echo 'LibreOffice & Document Viewer'
+paru -S libreoffice-fresh evince-no-gnome
 clear
 
 echo 'Gamemoded*'
