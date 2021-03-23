@@ -91,6 +91,7 @@ exec discord
     bindsym $mod+c exec subl
     bindsym $mod+v exec code
     bindsym $mod+g exec lutris
+    bindsym $mod+m exec element-desktop
     bindsym $mod+d exec discord
 
     # Drag floating windows by holding down $mod and left mouse button.
