@@ -176,8 +176,8 @@ parse_options() {
 					CONF_SWAPFILE='no'
 					CONF_SWAPFILE_SIZE='no'
 				else
-					CONF_SWAPFILE='yes'
-					CONF_SWAPFILE_SIZE="$OPTARG"
+					CONF_SWAPFILE='no'
+					CONF_SWAPFILE_SIZE='no'
 				fi;
 				WARN_PARAMS='true';;
             # Home partition size
@@ -730,14 +730,6 @@ END
 		else
 			arch-chroot /mnt su -c "echo 'root:$conf_pass_root' | chpasswd"
 		fi
-	fi && \
-
-	if [ "$conf_swapfile" = 'yes' ]; then
-		print s 'Create swap file' && \
-		dd if=/dev/zero of=/mnt/swapfile bs=1M count="$conf_swapfile_size" status=progress &>> "$CONF_LOGFILE" && \
-		chmod 600 /mnt/swapfile &>> "$CONF_LOGFILE" && \
-		mkswap /mnt/swapfile &>> "$CONF_LOGFILE" && \
-		echo '/swapfile none swap defaults 0 0' >> /mnt/etc/fstab
 	fi && \
 
 	if [ "$conf_aur" = 'yes' ]; then
