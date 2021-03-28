@@ -614,8 +614,7 @@ pre_installation() {
 	yes | mkfs.fat -F32 "/dev/${conf_disk}${part_prefix}1" &>> "$CONF_LOGFILE" && \
 
 	print s 'Format root partition & label it' && \
-	yes | mkfs.ext4 -F "/dev/${conf_disk}${part_prefix}2" &>> "$CONF_LOGFILE" && \
-	e2label "/dev/${conf_disk}${part_prefix}2" archlinux  &>> "$CONF_LOGFILE" && \
+	yes | mkfs.btrfs -L archlinux "/dev/${conf_disk}${part_prefix}2" &>> "$CONF_LOGFILE" && \
 
 	print s 'Mount partitions' && \
 	mount "/dev/${conf_disk}${part_prefix}2" /mnt &>> "$CONF_LOGFILE" && \
