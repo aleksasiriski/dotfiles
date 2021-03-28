@@ -14,6 +14,11 @@ sudo systemctl enable --now reflector.service
 sudo systemctl enable --now reflector.timer
 clear
 
+echo 'Gamemoded*'
+paru -S meson dbus cpupower --noconfirm
+sudo systemctl enable cpupower
+clear
+
 echo 'Better CLI tools'
 paru -S neofetch htop bashtop micro wget curl git github-cli --noconfirm
 clear
@@ -24,8 +29,8 @@ clear
 
 echo 'Xorg, Intel and Amd GPU drivers'
 paru -S xorg xorg-xinit mesa lib32-mesa libva-utils --noconfirm
-paru -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
 paru -S vulkan-intel intel-media-driver libva-intel-driver --noconfirm
+paru -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
 clear
 
 echo 'Pipewire'
@@ -78,11 +83,6 @@ clear
 
 echo 'LibreOffice & Document Viewer'
 paru -S libreoffice-fresh evince-no-gnome
-clear
-
-echo 'Gamemoded*'
-paru -S meson dbus cpupower --noconfirm
-sudo systemctl enable cpupower
 clear
 
 echo 'Proton-GE'
