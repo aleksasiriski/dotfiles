@@ -70,7 +70,7 @@ paru -S steam steam-native-runtime lutris heroic-games-launcher-bin
 clear
 
 echo 'Social'
-paru -S dino discord
+paru -S dino element-desktop lightcord-bin
 clear
 
 echo 'Video & Audio production'
