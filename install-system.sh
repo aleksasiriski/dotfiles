@@ -608,18 +608,22 @@ pre_installation() {
 
 	print s 'Format disk' && \
 	sgdisk --zap-all "/dev/$conf_disk" &>> "$CONF_LOGFILE" &&\
-	sgdisk "/dev/$conf_disk" -o -n 1:0:512M -t 1:ef00 -N 2 -t "2:8303" &>> "$CONF_LOGFILE" && \
+	sgdisk "/dev/$conf_disk" -o -n 1:0:512M -t 1:ef00 -n 2:513M:2561M -t "2:8200" -N 3 -t "3:8303" &>> "$CONF_LOGFILE" && \
 
 	print s 'Format boot partition' && \
 	yes | mkfs.fat -F32 "/dev/${conf_disk}${part_prefix}1" &>> "$CONF_LOGFILE" && \
 
+	print s 'Format swap partition' && \
+	yes | mkswap "/dev/${conf_disk}${part_prefix}2"
+
 	print s 'Format root partition & label it' && \
-	yes | mkfs.btrfs -L archlinux "/dev/${conf_disk}${part_prefix}2" &>> "$CONF_LOGFILE" && \
+	yes | mkfs.btrfs -L archlinux "/dev/${conf_disk}${part_prefix}3" &>> "$CONF_LOGFILE" && \
 
 	print s 'Mount partitions' && \
-	mount "/dev/${conf_disk}${part_prefix}2" /mnt &>> "$CONF_LOGFILE" && \
+	mount "/dev/${conf_disk}${part_prefix}3" /mnt &>> "$CONF_LOGFILE" && \
 	mkdir -p /mnt/boot &>> "$CONF_LOGFILE" && \
-	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot &>> "$CONF_LOGFILE"
+	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot &>> "$CONF_LOGFILE" \
+	swapon "/dev/${conf_disk}${part_prefix}2" &>> "$CONF_LOGFILE"
 
 }
 
