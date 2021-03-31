@@ -594,7 +594,7 @@ pre_installation() {
 		true
 	} && \
 
-	swapoff "/dev/${conf_disk}${part_prefix}2" && \
+	swapoff "/dev/${conf_disk}${part_prefix}2"
 	print s 'Format disk' && \
 	sgdisk --zap-all "/dev/$conf_disk" &>> "$CONF_LOGFILE" &&\
 	sgdisk "/dev/$conf_disk" -o -n 1:0:512M -t 1:ef00 -n 2:513M:2561M -t "2:8200" -N 3 -t "3:8303" &>> "$CONF_LOGFILE" && \
