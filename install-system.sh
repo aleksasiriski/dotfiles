@@ -681,10 +681,6 @@ END
 127.0.1.1   $conf_hostname.localdomain $conf_hostname
 END
 	} && \
-
-	sed -i 's/^MODULES=(.*)/MODULES=(i915 amdgpu)/' /mnt/etc/mkinitcpio.conf
-	arch-chroot /mnt mkinitcpio -P &>> "$CONF_LOGFILE" && \
-
 	print s 'Configure pacman and makepkg' && \
 	curl -L "https://www.archlinux.org/mirrorlist/?protocol=https&ip_version=4&ip_version=6&use_mirror_status=on$mirror_country_url" 2>> "$CONF_LOGFILE" | sed 's/^#//' > /mnt/etc/pacman.d/mirrorlist && \
 	sed 's/[ \t#]*MAKEFLAGS.*$/MAKEFLAGS="-j$(nproc)"/' -i /mnt/etc/makepkg.conf && \
