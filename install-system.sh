@@ -349,12 +349,6 @@ configure_host() {
 	if [ -z "$CONF_DISK" ]; then
 		if print c 'Y' 'Enable full disk encryption'; then
 			conf_disk_encryption='no'
-			print "$CONF_PASS_PROMPT" '.+' 'Enter disk password:'
-			conf_disk_pass="$user_input"
-			print "$CONF_PASS_PROMPT" '.+' 'Repeat disk password:'
-			repeat_disk_pass="$user_input"
-			[ "$conf_disk_pass" = "$repeat_disk_pass" ] || \
-			print e 'Disk password mismatch!'
 		else
 			conf_disk_encryption='no'
 		fi
@@ -365,14 +359,8 @@ configure_host() {
 
 	if [ -z "$CONF_SWAPFILE" ]; then
 		if print c 'Y' 'Enable swap file'; then
-			conf_swapfile='yes'
-			swapfile_default=2048
-			print i '$|^([1-9][0-9]*)' "Swap file size in megabytes [$swapfile_default]:"
-			if [ -z "$user_input" ]; then
-				conf_swapfile_size="$swapfile_default"
-			else
-				conf_swapfile_size="$user_input"
-			fi
+			conf_swapfile='no'
+			conf_swapfile_size='no'
 		else
 			conf_swapfile='no'
 			conf_swapfile_size='no'
@@ -606,6 +594,7 @@ pre_installation() {
 		true
 	} && \
 
+	swapoff "/dev/${conf_disk}${part_prefix}2" && \
 	print s 'Format disk' && \
 	sgdisk --zap-all "/dev/$conf_disk" &>> "$CONF_LOGFILE" &&\
 	sgdisk "/dev/$conf_disk" -o -n 1:0:512M -t 1:ef00 -n 2:513M:2561M -t "2:8200" -N 3 -t "3:8303" &>> "$CONF_LOGFILE" && \
