@@ -586,7 +586,7 @@ pre_installation() {
 	curl -L "https://www.archlinux.org/mirrorlist/?protocol=https&ip_version=4&ip_version=6&use_mirror_status=on$mirror_country_url" 2>> "$CONF_LOGFILE" | sed 's/^#//' > /etc/pacman.d/mirrorlist && \
 
 	print s 'Prepare required packages' && \
-	pacman -Sy --noconfirm --needed arch-install-scripts dosfstools e2fsprogs btrfs-progs gptfdisk curl awk efibootmgr &>> "$CONF_LOGFILE" && \
+	pacman -Sy --noconfirm --needed arch-install-scripts dosfstools e2fsprogs btrfs-progs zstd gptfdisk curl awk efibootmgr &>> "$CONF_LOGFILE" && \
 
 	print s 'Unmount all partitions on disk' && {
 		umount -R /mnt &>> "$CONF_LOGFILE" || \
@@ -624,7 +624,7 @@ pre_installation() {
 	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
 	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home && \
 	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
-	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot/efi && \
+	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot && \
 	swapon "/dev/${conf_disk}${part_prefix}2" && \
 	print s 'Removing tmp files on reboot' && {
 	tee -a /mnt/etc/tmpfiles.d/tmp.conf << END
