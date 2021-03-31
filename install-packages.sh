@@ -54,7 +54,7 @@ paru -S noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-
 clear
 
 echo 'Standard GUI apps'
-paru -S polkit-gnome alacritty devour pcmanfm gvfs gvfs-mtp ntfs-3g xarchiver sublime-text-3 vscodium-bin imv mpv vlc cpu-x
+paru -S polkit-gnome alacritty devour pcmanfm-gtk3 gvfs gvfs-mtp ntfs-3g xarchiver sublime-text-3 vscodium-bin imv mpv vlc cpu-x
 clear
 
 echo 'Systray apps'

@@ -20,9 +20,9 @@ set $menu wofi --show=drun --lines=5 --prompt=""
 
 ### Output configuration
 output DP-1 resolution 1920x1080@144Hz position 0,1080
-output DP-1 bg /storage/Stvari/Slike/Wallpapers/archlinux.png fill
+output DP-1 bg ~/Stvari/Slike/Wallpapers/archlinux.png fill
 output HDMI-A-3 resolution 1920x1080@75Hz position 0,0
-output HDMI-A-3 bg /storage/Stvari/Slike/Wallpapers/disenchantment.jpg fill
+output HDMI-A-3 bg ~/Stvari/Slike/Wallpapers/disenchantment.jpg fill
 output * adaptive_sync on
 
 ### Input configuration
@@ -55,7 +55,6 @@ exec_always {
 }
 
 ### Window config
-for_window [app_id=zoom] floating enable
 for_window [title="Firefox — Sharing Indicator"] floating enable
 for_window [app_id=".*"] border pixel 1
 
@@ -70,7 +69,7 @@ exec nm-applet --indicator
 exec steam-native -silent
 exec dino --gapplication-service
 exec element-desktop --hidden
-exec discord
+exec lightcord
 
 ### Key bindings
 #
@@ -92,7 +91,7 @@ exec discord
     bindsym $mod+v exec vscodium
     bindsym $mod+g exec lutris
     bindsym $mod+m exec element-desktop
-    bindsym $mod+d exec discord
+    bindsym $mod+d exec lightcord
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
