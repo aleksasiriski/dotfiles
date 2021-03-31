@@ -618,7 +618,7 @@ pre_installation() {
 	btrfs sub cr /mnt/@home && \
 	umount /mnt && \
 	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@ "/dev/${conf_disk}${part_prefix}3" /mnt && \
-	mkdir -p /mnt/{boot/efi,home,var/log,var/cache/pacman/pkg,btrfs,tmp,etc/tmpfiles.d} && \
+	mkdir -p /mnt/{boot/efi,boot/loader,home,var/log,var/cache/pacman/pkg,btrfs,tmp,etc/tmpfiles.d} && \
 	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@log "/dev/${conf_disk}${part_prefix}3" /mnt/var/log && \
 	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg && \
 	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
