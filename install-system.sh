@@ -617,13 +617,13 @@ pre_installation() {
 	btrfs sub cr /mnt/@snapshots && \
 	btrfs sub cr /mnt/@home && \
 	umount /mnt && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@ "/dev/${conf_disk}${part_prefix}3" /mnt && \
+	mount -o relatime,space_cache=v2,ssd,subvol=@ "/dev/${conf_disk}${part_prefix}3" /mnt && \
 	mkdir -p /mnt/{boot/efi,boot/loader/entries,home,var/log,var/cache/pacman/pkg,btrfs,tmp,etc/tmpfiles.d} && \
-	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@log "/dev/${conf_disk}${part_prefix}3" /mnt/var/log && \
-	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg && \
-	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
+	mount -o relatime,space_cache=2,ssd,subvol=@log "/dev/${conf_disk}${part_prefix}3" /mnt/var/log && \
+	mount -o relatime,space_cache=2,ssd,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg && \
+	mount -o relatime,space_cache=2,ssd,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
 	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home && \
-	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
+	mount -o relatime,space_cache=2,ssd,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
 	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot && \
 	swapon "/dev/${conf_disk}${part_prefix}2" && \
 	print s 'Removing tmp files on reboot' && {
@@ -694,7 +694,7 @@ title    Arch Linux
 linux    /vmlinuz-linux-zen
 $([ -n "$cpu_vendor" ] && echo "initrd   /${cpu_vendor}-ucode.img")
 initrd   /booster-linux-zen.img
-options  $root_volume rw loglevel=3 quiet add_efi_memmap
+options  $root_volume rw rootflags=subvol=@ quiet loglevel=3 vga=current add_efi_memmap
 END
 	} && \
 	if [ "$conf_lts_kernel" = 'yes' ]; then
@@ -703,7 +703,7 @@ title    Arch Linux (LTS)
 linux    /vmlinuz-linux-lts
 $([ -n "$cpu_vendor" ] && echo "initrd   /${cpu_vendor}-ucode.img")
 initrd   /booster-linux-lts.img
-options  $root_volume rw loglevel=3 quiet add_efi_memmap
+options  $root_volume rw rootflags=subvol=@ add_efi_memmap
 END
 	fi && \
 
