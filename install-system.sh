@@ -598,7 +598,7 @@ pre_installation() {
 	curl -L "https://www.archlinux.org/mirrorlist/?protocol=https&ip_version=4&ip_version=6&use_mirror_status=on$mirror_country_url" 2>> "$CONF_LOGFILE" | sed 's/^#//' > /etc/pacman.d/mirrorlist && \
 
 	print s 'Prepare required packages' && \
-	pacman -Sy --noconfirm --needed arch-install-scripts dosfstools e2fsprogs gptfdisk curl awk efibootmgr &>> "$CONF_LOGFILE" && \
+	pacman -Sy --noconfirm --needed arch-install-scripts dosfstools e2fsprogs btrfs-progs gptfdisk curl awk efibootmgr &>> "$CONF_LOGFILE" && \
 
 	print s 'Unmount all partitions on disk' && {
 		umount -R /mnt &>> "$CONF_LOGFILE" || \
@@ -611,20 +611,37 @@ pre_installation() {
 	sgdisk "/dev/$conf_disk" -o -n 1:0:512M -t 1:ef00 -n 2:513M:2561M -t "2:8200" -N 3 -t "3:8303" &>> "$CONF_LOGFILE" && \
 
 	print s 'Format boot partition' && \
-	yes | mkfs.fat -F32 "/dev/${conf_disk}${part_prefix}1" &>> "$CONF_LOGFILE" && \
+	yes | mkfs.vfat -F 32 -n EFI "/dev/${conf_disk}${part_prefix}1" &>> "$CONF_LOGFILE" && \
 
 	print s 'Format swap partition' && \
 	yes | mkswap "/dev/${conf_disk}${part_prefix}2"
 
 	print s 'Format root partition & label it' && \
-	yes | mkfs.btrfs -L archlinux "/dev/${conf_disk}${part_prefix}3" &>> "$CONF_LOGFILE" && \
+	yes | mkfs.btrfs -L archlinux "/dev/${conf_disk}${part_prefix}3" -f &>> "$CONF_LOGFILE" && \
 
 	print s 'Mount partitions' && \
-	mount "/dev/${conf_disk}${part_prefix}3" /mnt &>> "$CONF_LOGFILE" && \
-	mkdir -p /mnt/boot &>> "$CONF_LOGFILE" && \
-	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot &>> "$CONF_LOGFILE" \
-	swapon "/dev/${conf_disk}${part_prefix}2" &>> "$CONF_LOGFILE"
-
+	mount "/dev/${conf_disk}${part_prefix}3" /mnt && \
+	btrfs sub cr /mnt/@ && \
+	btrfs sub cr /mnt/@tmp && \
+	btrfs sub cr /mnt/@log && \
+	btrfs sub cr /mnt/@pkg && \
+	btrfs sub cr /mnt/@snapshots && \
+	btrfs sub cr /mnt/@home && \
+	umount /mnt && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@ "/dev/${conf_disk}${part_prefix}3" /mnt && \
+	mkdir -p /mnt/{boot/efi,home,var/log,var/cache/pacman/pkg,btrfs,tmp,etc/tmpfiles.d} && \
+	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@log "/dev/${conf_disk}${part_prefix}3" /mnt/var/log && \
+	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg && \
+	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
+	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home && \
+	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
+	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot/efi && \
+	swapon "/dev/${conf_disk}${part_prefix}2" && \
+	print s 'Removing tmp files on reboot' && {
+	tee -a /mnt/etc/tmpfiles.d/tmp.conf << END
+D! /tmp 1777 root root 0
+END
+	} \
 }
 
 installation() {
@@ -632,7 +649,7 @@ installation() {
 	print t 'Installing system' && \
 
 	print s 'Install Arch Linux base system' && \
-	pacstrap /mnt base base-devel linux-zen linux-firmware networkmanager sudo nano $conf_shell $conf_lts &>> "$CONF_LOGFILE" && \
+	pacstrap /mnt base base-devel linux-zen booster linux-firmware networkmanager sudo nano $conf_shell $conf_lts &>> "$CONF_LOGFILE" && \
 
 	print s 'Enable NetworkManager service' && \
 	arch-chroot /mnt systemctl enable NetworkManager &>> "$CONF_LOGFILE" && \
@@ -708,9 +725,9 @@ END
 	if [ "$conf_uefi_entry" = 'yes' ]; then
 		print s 'Create direct UEFI boot entry' && \
 		root_volume="root=LABEL=archlinux"
-		efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch Linux' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw loglevel=3 quiet add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\initramfs-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
+		efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw loglevel=3 quiet add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
 		if [ "$conf_lts_kernel" = 'yes' ]; then
-			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch Linux (LTS)' --loader '/vmlinuz-linux-lts' --unicode "${root_volume} rw loglevel=3 quiet add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\initramfs-linux-lts.img" --verbose  &>> "$CONF_LOGFILE"
+			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch Linux (LTS)' --loader '/vmlinuz-linux-lts' --unicode "${root_volume} rw loglevel=3 quiet add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-lts.img" --verbose  &>> "$CONF_LOGFILE"
 		fi
 	fi && \
 
