@@ -710,9 +710,9 @@ END
 	if [ "$conf_uefi_entry" = 'yes' ]; then
 		print s 'Create direct UEFI boot entry' && \
 		root_volume="root=LABEL=archlinux"
-		efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw loglevel=3 quiet add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
+		efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw rootflags=subvol=@ quiet loglevel=3 vga=current add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
 		if [ "$conf_lts_kernel" = 'yes' ]; then
-			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch Linux (LTS)' --loader '/vmlinuz-linux-lts' --unicode "${root_volume} rw loglevel=3 quiet add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-lts.img" --verbose  &>> "$CONF_LOGFILE"
+			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch (LTS)' --loader '/vmlinuz-linux-lts' --unicode "${root_volume} rw rootflags=subvol=@ add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-lts.img" --verbose  &>> "$CONF_LOGFILE"
 		fi
 	fi && \
 
