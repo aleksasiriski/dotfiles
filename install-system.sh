@@ -586,7 +586,7 @@ pre_installation() {
 	curl -L "https://www.archlinux.org/mirrorlist/?protocol=https&ip_version=4&ip_version=6&use_mirror_status=on$mirror_country_url" 2>> "$CONF_LOGFILE" | sed 's/^#//' > /etc/pacman.d/mirrorlist && \
 
 	print s 'Prepare required packages' && \
-	pacman -Sy --noconfirm --needed arch-install-scripts dosfstools e2fsprogs btrfs-progs zstd gptfdisk curl awk efibootmgr &>> "$CONF_LOGFILE" && \
+	pacman -Sy --noconfirm --needed arch-install-scripts dosfstools btrfs-progs zstd gptfdisk curl awk efibootmgr &>> "$CONF_LOGFILE" && \
 
 	print s 'Unmount all partitions on disk' && {
 		umount -R /mnt &>> "$CONF_LOGFILE" || \
@@ -638,7 +638,7 @@ installation() {
 	print t 'Installing system' && \
 
 	print s 'Install Arch Linux base system' && \
-	pacstrap /mnt base base-devel linux-zen booster linux-firmware networkmanager sudo nano $conf_shell $conf_lts &>> "$CONF_LOGFILE" && \
+	pacstrap /mnt base base-devel linux-zen booster linux-firmware btrfs-progs zstd networkmanager sudo nano $conf_shell $conf_lts &>> "$CONF_LOGFILE" && \
 
 	print s 'Enable NetworkManager service' && \
 	arch-chroot /mnt systemctl enable NetworkManager &>> "$CONF_LOGFILE" && \
