@@ -624,7 +624,7 @@ pre_installation() {
 	mount -o relatime,space_cache=2,ssd,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg && \
 	mount -o relatime,space_cache=2,ssd,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
 	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home && \
-	mount -o relatime,space_cache=2,ssd,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
+	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
 	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot && \
 	swapon "/dev/${conf_disk}${part_prefix}2" && \
 	print s 'Removing tmp files on reboot' && {
@@ -639,7 +639,11 @@ installation() {
 	print t 'Installing system' && \
 
 	print s 'Install Arch Linux base system' && \
-	pacstrap /mnt base base-devel linux-zen booster linux-firmware btrfs-progs zstd networkmanager sudo nano $conf_shell $conf_lts &>> "$CONF_LOGFILE" && \
+	if [ "$conf_lts_kernel" = 'yes' ]; then
+		pacstrap /mnt base base-devel linux-lts booster linux-firmware btrfs-progs zstd networkmanager sudo nano $conf_shell &>> "$CONF_LOGFILE"
+	else
+		pacstrap /mnt base base-devel linux-zen booster linux-firmware btrfs-progs zstd networkmanager sudo nano $conf_shell &>> "$CONF_LOGFILE"
+	fi && \
 
 	print s 'Enable NetworkManager service' && \
 	arch-chroot /mnt systemctl enable NetworkManager &>> "$CONF_LOGFILE" && \
@@ -689,31 +693,32 @@ timeout 0
 default arch
 END
 	} &&
-	root_volume="root=LABEL=archlinux" && {
-	tee /mnt/boot/loader/entries/arch.conf &>> "$CONF_LOGFILE" << END
+	root_volume="root=LABEL=archlinux"
+	if [ "$conf_lts_kernel" = 'yes' ]; then
+		tee /mnt/boot/loader/entries/arch.conf &>> "$CONF_LOGFILE" << END
+title    Arch Linux (LTS)
+linux    /vmlinuz-linux-lts
+$([ -n "$cpu_vendor" ] && echo "initrd   /${cpu_vendor}-ucode.img")
+initrd   /booster-linux-lts.img
+options  $root_volume rw rootflags=subvol=@ intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba add_efi_memmap
+END
+	else
+		tee /mnt/boot/loader/entries/arch.conf &>> "$CONF_LOGFILE" << END
 title    Arch Linux
 linux    /vmlinuz-linux-zen
 $([ -n "$cpu_vendor" ] && echo "initrd   /${cpu_vendor}-ucode.img")
 initrd   /booster-linux-zen.img
 options  $root_volume rw rootflags=subvol=@ quiet loglevel=3 vga=current add_efi_memmap
 END
-	} && \
-	if [ "$conf_lts_kernel" = 'yes' ]; then
-		tee /mnt/boot/loader/entries/arch-lts.conf &>> "$CONF_LOGFILE" << END
-title    Arch Linux (LTS)
-linux    /vmlinuz-linux-lts
-$([ -n "$cpu_vendor" ] && echo "initrd   /${cpu_vendor}-ucode.img")
-initrd   /booster-linux-lts.img
-options  $root_volume rw rootflags=subvol=@ add_efi_memmap
-END
 	fi && \
 
 	if [ "$conf_uefi_entry" = 'yes' ]; then
 		print s 'Create direct UEFI boot entry' && \
 		root_volume="root=LABEL=archlinux"
-		efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw rootflags=subvol=@ quiet loglevel=3 vga=current add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
 		if [ "$conf_lts_kernel" = 'yes' ]; then
-			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch (LTS)' --loader '/vmlinuz-linux-lts' --unicode "${root_volume} rw rootflags=subvol=@ add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-lts.img" --verbose  &>> "$CONF_LOGFILE"
+			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch (LTS)' --loader '/vmlinuz-linux-lts' --unicode "${root_volume} rw rootflags=subvol=@ intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-lts.img" --verbose  &>> "$CONF_LOGFILE"
+		else
+			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw rootflags=subvol=@ quiet loglevel=3 vga=current add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
 		fi
 	fi && \
 
@@ -789,24 +794,7 @@ post_installation() {
 
 }
 
-dotfiles_installer() {
-
-	print s 'Adding dotfiles installer script' && \
-	arch-chroot /mnt pacman -Sy --needed --noconfirm git &>> "$CONF_LOGFILE" && {
-		tee /mnt/usr/bin/dotfiles-install &>> "$CONF_LOGFILE" << END
-#!/bin/sh
-[ -d /tmp/dotfiles ] || \
-git clone --depth 1 https://github.com/filiparag/dotfiles /tmp/dotfiles
-chmod +x /tmp/dotfiles/install-dotfiles.sh && \
-/tmp/dotfiles/install-dotfiles.sh && \
-rm -rf /tmp/dotfiles
-END
-	} && \
-	chmod +x /mnt/usr/bin/dotfiles-install && \
-
-	print w 'To install dotfiles, run dotfiles-install when you log in'
-
-}
+dotfiles_installer() {}
 
 preferences_write() {
 
