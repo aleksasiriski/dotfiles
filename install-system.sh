@@ -163,23 +163,6 @@ parse_options() {
 			# Installation disk
 			(D) CONF_DISK="$OPTARG";
 				WARN_PARAMS='true';;
-			# Disk encryption password
-			(E) if [ "$OPTARG" = '' ]; then
-					CONF_DISK_ENCRYPTION='no'
-				else
-					CONF_DISK_ENCRYPTION='no'
-					CONF_DISK_PASS="$OPTARG"
-				fi;
-				WARN_PARAMS='true';;
-			# Swap file size
-			(S) if [ "$OPTARG" = '0' ]; then
-					CONF_SWAPFILE='no'
-					CONF_SWAPFILE_SIZE='no'
-				else
-					CONF_SWAPFILE='no'
-					CONF_SWAPFILE_SIZE='no'
-				fi;
-				WARN_PARAMS='true';;
             # Home partition size
 			(H) if [ "$OPTARG" = '0' ]; then
 					CONF_HOME='no'
@@ -240,13 +223,6 @@ parse_options() {
 			# Default user shell
 			(s) CONF_SHELL="$OPTARG";
 				WARN_PARAMS='true';;
-			# Add dotfiles installer
-			(d) if [ "$OPTARG" = 'yes' ]; then
-					CONF_DOTFILES='yes';
-				else
-					CONF_DOTFILES='no';
-				fi;
-				WARN_PARAMS='true';;
 			# Chroot into system for manual modifications
 			(c) if [ "$OPTARG" = 'yes' ]; then
 					CONF_CHROOT='yes';
@@ -272,8 +248,6 @@ parse_options() {
 				print l 'M' "${sn}${sb}${cc}HOSTNAME     " "${sn}Hostname";
 				print l 'T' "${sn}${sb}${cc}TIMEZONE     " "${sn}Timezone";
 				print l 'D' "${sn}${sb}${cc}DISK         " "${sn}Installation disk";
-				print l 'E' "${sn}${sb}${cc}DISK_PASS    " "${sn}Disk encryption password (${sb}empty${sn} to disable)";
-				print l 'S' "${sn}${sb}${cc}SWAPFILE_SIZE" "${sn}Swap file size (${sb}0${sn} to disable)";
 				print l 'H' "${sn}${sb}${cc}HOME_SIZE    " "${sn}Separate home partition size (${sb}0${sn} to disable)";
 				print l 'K' "${sn}${sb}${cc}yes/no       " "${sn}Enable LTS kernel";
 				print l 'B' "${sn}${sb}${cc}yes/no       " "${sn}Add direct UEFI boot entry";
@@ -286,7 +260,6 @@ parse_options() {
 				print l 'x' "${sn}${sb}${cc}yes/no       " "${sn}Enable passwordless sudo";
 				print l 's' "${sn}${sb}${cc}SHELL        " "${sn}Default user shell";
 				print s 'Post installation';
-				print l 'd' "${sn}${sb}${cc}yes/no       " "${sn}Add dotfiles installer";
 				print l 'c' "${sn}${sb}${cc}yes/no       " "${sn}Chroot into system for manual modifications";
 				print s 'Miscellaneous';
 				print l 'F' "${sn}${sb}${cc}CONFIG_TOML  " "${sn}Read configuration from file";
@@ -344,30 +317,6 @@ configure_host() {
 		part_prefix="p"
 	else
 		part_prefix=""
-	fi
-
-	if [ -z "$CONF_DISK" ]; then
-		if print c 'Y' 'Enable full disk encryption'; then
-			conf_disk_encryption='no'
-		else
-			conf_disk_encryption='no'
-		fi
-	else
-		conf_disk_encryption="$CONF_DISK_ENCRYPTION"
-		conf_disk_pass="$CONF_DISK_PASS"
-	fi
-
-	if [ -z "$CONF_SWAPFILE" ]; then
-		if print c 'Y' 'Enable swap file'; then
-			conf_swapfile='no'
-			conf_swapfile_size='no'
-		else
-			conf_swapfile='no'
-			conf_swapfile_size='no'
-		fi
-	else
-		conf_swapfile="$CONF_SWAPFILE"
-		conf_swapfile_size="$CONF_SWAPFILE_SIZE"
 	fi
 
     if [ -z "$CONF_HOME_SIZE" ]; then
@@ -524,10 +473,7 @@ configuration_summary() {
 	print l 'Hostname:' "${sn}${sb}$conf_hostname"
 	print l 'Timezone:' "${sn}${sb}$conf_timezone"
 	print l 'Installation disk:' "${sn}${sb}$conf_disk"
-	print l 'Encryption:' "${sn}${sb}$conf_disk_encryption"
-	[ "$CONF_INSECURE" = 'true' ] && [ "$conf_disk_encryption" = 'yes' ] && \
 	print l 'Disk password:' "${sn}${sb}$conf_disk_pass"
-	print l 'Swap file:' "${sn}${sb}$conf_swapfile_size"
     print l 'Home partition:' "${sn}${sb}$conf_home_size"
 	print l 'Include LTS kernel:' "${sn}${sb}$conf_lts_kernel"
 	print l 'Direct UEFI boot entry:' "${sn}${sb}$conf_uefi_entry"
@@ -547,11 +493,8 @@ configuration_summary() {
 		print l 'Add primary user:' "${sn}${sb}$conf_add_user"
 	fi
 
-	if [ -n "$CONF_DOTFILES" ] || [ -n "$CONF_CHROOT" ]; then
+	if [ -n "$CONF_CHROOT" ]; then
 		print s 'Post installation'
-		if [ -n "$CONF_DOTFILES" ]; then
-			print l 'Dotfiles installer:' "${sn}${sb}$CONF_DOTFILES"
-		fi
 		if [ -n "$CONF_CHROOT" ]; then
 			print l 'Chroot into system:' "${sn}${sb}$CONF_CHROOT"
 		fi
@@ -620,11 +563,11 @@ pre_installation() {
 	umount /mnt && \
 	mount -o relatime,space_cache=v2,ssd,subvol=@ "/dev/${conf_disk}${part_prefix}3" /mnt && \
 	mkdir -p /mnt/{boot/efi,boot/loader/entries,home,var/log,var/cache/pacman/pkg,btrfs,tmp,etc/tmpfiles.d} && \
-	mount -o relatime,space_cache=2,ssd,subvol=@log "/dev/${conf_disk}${part_prefix}3" /mnt/var/log && \
-	mount -o relatime,space_cache=2,ssd,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg && \
-	mount -o relatime,space_cache=2,ssd,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
-	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home && \
-	mount -o relatime,space_cache=2,ssd,compress-force=zstd,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
+	mount -o relatime,space_cache=v2,ssd,subvol=@log "/dev/${conf_disk}${part_prefix}3" /mnt/var/log && \
+	mount -o relatime,space_cache=v2,ssd,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg && \
+	mount -o relatime,space_cache=v2,ssd,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
 	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot && \
 	swapon "/dev/${conf_disk}${part_prefix}2" && \
 	print s 'Removing tmp files on reboot' && {
@@ -768,14 +711,6 @@ post_installation() {
 
 	print t 'Post installation'
 
-	if [ -z "$CONF_DOTFILES" ]; then
-		print c 'Y' 'Add dotfiles installer?' && \
-		CONF_DOTFILES='yes' && \
-		dotfiles_installer
-	elif [ "$CONF_DOTFILES" = 'yes' ]; then
-		dotfiles_installer
-	fi
-
 	if [ -z "$CONF_CHROOT" ]; then
 		print c 'N' 'Chroot into system for manual modifications?' || \
 		arch-chroot /mnt "/usr/bin/${conf_shell:-bash}"
@@ -794,8 +729,6 @@ post_installation() {
 
 }
 
-dotfiles_installer() {}
-
 preferences_write() {
 
 	if [ -n "$CONF_PREFSWFILE" ] && touch "$CONF_PREFSWFILE"; then
@@ -811,10 +744,6 @@ version =		"$CONF_VERSION"
 hostname =		"$conf_hostname"
 timezone =		"$conf_timezone"
 disk =			"$conf_disk"
-disk_encryption =	"$conf_disk_encryption"
-disk_pass =		"$conf_disk_pass"
-swapfile =		"$conf_swapfile"
-swapfile_size =		"$conf_swapfile_size"
 home =			"$conf_home"
 home_size =		"$conf_home_size"
 lts_kernel = 		"$conf_lts_kernel"
@@ -833,7 +762,6 @@ passwordless = 		"$conf_passwordless"
 shell = 		"$conf_shell"
 
 [misc]
-dotfiles = 		"$CONF_DOTFILES"
 skip_confirmation = 	"$CONF_SKIP_CONFIRMATION"
 END
 
@@ -874,14 +802,6 @@ preferences_read() {
 				CONF_TIMEZONE="$(sed -n "s/^timezone$regex_match" "$conf_prefsrfile")"
 			[ -z "$CONF_DISK" ] && \
 				CONF_DISK="$(sed -n "s/^disk$regex_match" "$conf_prefsrfile")"
-			[ -z "$CONF_DISK_ENCRYPTION" ] && \
-				CONF_DISK_ENCRYPTION="$(sed -n "s/^disk_encryption$regex_match" "$conf_prefsrfile")"
-			[ -z "$CONF_DISK_PASS" ] && \
-				CONF_DISK_PASS="$(sed -n "s/^disk_pass$regex_match" "$conf_prefsrfile")"
-			[ -z "$CONF_SWAPFILE" ] && \
-				CONF_SWAPFILE="$(sed -n "s/^swapfile$regex_match" "$conf_prefsrfile")"
-			[ -z "$CONF_SWAPFILE_SIZE" ] && \
-				CONF_SWAPFILE_SIZE="$(sed -n "s/^swapfile_size$regex_match" "$conf_prefsrfile")"
 			[ -z "$CONF_HOME" ] && \
 				CONF_HOME="$(sed -n "s/^home$regex_match" "$conf_prefsrfile")"
 			[ -z "$CONF_HOME_SIZE" ] && \
@@ -911,9 +831,6 @@ preferences_read() {
 				CONF_PASSWORDLESS="$(sed -n "s/^passwordless$regex_match" "$conf_prefsrfile")"
 			[ -z "$CONF_SHELL" ] && \
 				CONF_SHELL="$(sed -n "s/^shell$regex_match" "$conf_prefsrfile")"
-
-			[ -z "$CONF_DOTFILES" ] && \
-				CONF_DOTFILES="$(sed -n "s/^dotfiles$regex_match" "$conf_prefsrfile")"
 			[ -z "$CONF_SKIP_CONFIRMATION" ] && \
 				CONF_SKIP_CONFIRMATION="$(sed -n "s/^skip_confirmation$regex_match" "$conf_prefsrfile")"
 
