@@ -249,7 +249,7 @@ parse_options() {
 				print l 'T' "${sn}${sb}${cc}TIMEZONE     " "${sn}Timezone";
 				print l 'D' "${sn}${sb}${cc}DISK         " "${sn}Installation disk";
 				print l 'H' "${sn}${sb}${cc}HOME_SIZE    " "${sn}Separate home partition size (${sb}0${sn} to disable)";
-				print l 'K' "${sn}${sb}${cc}yes/no       " "${sn}Enable LTS kernel";
+				print l 'K' "${sn}${sb}${cc}yes/no       " "${sn}Server mode (LTS kernel)";
 				print l 'B' "${sn}${sb}${cc}yes/no       " "${sn}Add direct UEFI boot entry";
 				print l 'R' "${sn}${sb}${cc}MIRRORS      " "${sn}Repository mirror countries";
 				print l 'A' "${sn}${sb}${cc}yes/no       " "${sn}Enable Arch User Repository";
@@ -340,7 +340,7 @@ configure_host() {
 	fi
 
 	if [ -z "$CONF_LTS_KERNEL" ]; then
-		if print c 'N' 'Include supplementary LTS kernel'; then
+		if print c 'N' 'Install in server mode (LTS kernel)'; then
 			conf_lts_kernel='no'
 		else
 			conf_lts_kernel='yes'
@@ -473,9 +473,8 @@ configuration_summary() {
 	print l 'Hostname:' "${sn}${sb}$conf_hostname"
 	print l 'Timezone:' "${sn}${sb}$conf_timezone"
 	print l 'Installation disk:' "${sn}${sb}$conf_disk"
-	print l 'Disk password:' "${sn}${sb}$conf_disk_pass"
     print l 'Home partition:' "${sn}${sb}$conf_home_size"
-	print l 'Include LTS kernel:' "${sn}${sb}$conf_lts_kernel"
+	print l 'Server mode (LTS kernel):' "${sn}${sb}$conf_lts_kernel"
 	print l 'Direct UEFI boot entry:' "${sn}${sb}$conf_uefi_entry"
 	print l 'Pacman mirror countries:' "${sn}${sb}$conf_mirrors"
 	print l 'Arch User Repository:' "${sn}${sb}$conf_aur"
