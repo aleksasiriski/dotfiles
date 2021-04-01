@@ -566,7 +566,7 @@ pre_installation() {
 	mount -o relatime,space_cache=v2,ssd,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg && \
 	mount -o relatime,space_cache=v2,ssd,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
 	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
+	mount -o relatime,space_cache=v2,ssd,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
 	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot && \
 	swapon "/dev/${conf_disk}${part_prefix}2" && \
 	print s 'Removing tmp files on reboot' && {
