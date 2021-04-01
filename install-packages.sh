@@ -1,4 +1,7 @@
 #!/bin/sh
+echo 'Updating system...'
+paru -Syu
+clear
 
 echo 'User: '
 read username
