@@ -642,7 +642,7 @@ title    Arch Linux (LTS)
 linux    /vmlinuz-linux-lts
 $([ -n "$cpu_vendor" ] && echo "initrd   /${cpu_vendor}-ucode.img")
 initrd   /booster-linux-lts.img
-options  $root_volume rw rootflags=subvol=@ intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba add_efi_memmap
+options  $root_volume rw rootflags=subvol=@ module_blacklist=nouveau intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba add_efi_memmap
 END
 	else
 		tee /mnt/boot/loader/entries/arch.conf &>> "$CONF_LOGFILE" << END
@@ -658,7 +658,7 @@ END
 		print s 'Create direct UEFI boot entry' && \
 		root_volume="root=LABEL=archlinux"
 		if [ "$conf_lts_kernel" = 'yes' ]; then
-			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch (LTS)' --loader '/vmlinuz-linux-lts' --unicode "${root_volume} rw rootflags=subvol=@ intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-lts.img" --verbose  &>> "$CONF_LOGFILE"
+			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch (LTS)' --loader '/vmlinuz-linux-lts' --unicode "${root_volume} rw rootflags=subvol=@ module_blacklist=nouveau intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-lts.img" --verbose  &>> "$CONF_LOGFILE"
 		else
 			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw rootflags=subvol=@ quiet loglevel=3 vga=current add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
 		fi
