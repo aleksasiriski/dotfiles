@@ -1,9 +1,9 @@
 #!/bin/sh
-echo -e "Trying to reboot..."
+echo "Trying to reboot..."
 if pgrep "qemu-system-x86">/dev/null 2>&1 ;
 then
-	echo -e "VM is running!"
+	echo "VM is running!"
 else
-	echo -e "Rebooting..."
+	echo "Rebooting..."
 	sudo /usr/sbin/reboot f
 fi

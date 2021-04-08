@@ -1,9 +1,9 @@
 #!/bin/sh
-echo -e "Trying to shutdown..."
+echo "Trying to shutdown..."
 if pgrep "qemu-system-x86">/dev/null 2>&1 ;
 then
-	echo -e "VM is running!"
+	echo "VM is running!"
 else
-	echo -e "Shutting down..."
+	echo "Shutting down..."
 	sudo /usr/sbin/shutdown now
 fi
