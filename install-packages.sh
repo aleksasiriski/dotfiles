@@ -69,7 +69,7 @@ paru -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libld
 clear
 
 echo 'Gaming'
-paru -S steam steam-native-runtime lutris heroic-games-launcher-bin
+paru -S steam steam-native-runtime lutris heroic-games-launcher-bin libstrangle mangohud goverlay
 clear
 
 echo 'Social'
@@ -93,7 +93,6 @@ cd ~
 rm cproton.sh
 wget https://raw.githubusercontent.com/Termuellinator/ProtonUpdater/master/cproton.sh
 chmod +x cproton.sh
-./cproton.sh
 clear
 
 echo 'Finished installing packages!'
