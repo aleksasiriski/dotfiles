@@ -1,3 +1,3 @@
-sudo efibootmgr --disk /dev/nvme0n1 --part 1 --create --label "Arch" --loader /vmlinuz-linux-zen --unicode 'root=LABEL=archlinux rw rootflags=subvol=@ quiet loglevel=3 vga=current add_efi_memmap initrd=\intel-ucode.img initrd=\booster-linux-zen.img' --verbose
+sudo efibootmgr --disk /dev/nvme0n1 --part 1 --create --label "Arch" --loader /vmlinuz-linux-zen --unicode 'root=LABEL=archlinux rw rootflags=subvol=@ quiet loglevel=3 add_efi_memmap initrd=\intel-ucode.img initrd=\booster-linux-zen.img' --verbose
 
 sudo efibootmgr --disk /dev/sda --part 1 --create --label "Arch (LTS)" --loader /vmlinuz-linux-lts --unicode 'root=LABEL=archlinux rw rootflags=subvol=@ intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba add_efi_memmap initrd=\intel-ucode.img initrd=\initramfs-linux-lts.img' --verbose

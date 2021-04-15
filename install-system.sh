@@ -548,7 +548,7 @@ pre_installation() {
 	yes | mkswap -L "swap" "/dev/${conf_disk}${part_prefix}2" && \
 
 	print s 'Format root partition & label it' && \
-	yes | mkfs.btrfs -L "archlinux" "/dev/${conf_disk}${part_prefix}3" -f && \
+	yes | mkfs.btrfs -L "archlinux" -f "/dev/${conf_disk}${part_prefix}3" && \
 	btrfs filesystem label /dev/${conf_disk}${part_prefix}3 archlinux && \
 
 	print s 'Mount partitions' && \
@@ -650,7 +650,7 @@ title    Arch Linux
 linux    /vmlinuz-linux-zen
 $([ -n "$cpu_vendor" ] && echo "initrd   /${cpu_vendor}-ucode.img")
 initrd   /booster-linux-zen.img
-options  $root_volume rw rootflags=subvol=@ quiet loglevel=3 vga=current add_efi_memmap
+options  $root_volume rw rootflags=subvol=@ quiet loglevel=3 add_efi_memmap
 END
 	fi && \
 
@@ -660,7 +660,7 @@ END
 		if [ "$conf_lts_kernel" = 'yes' ]; then
 			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch (LTS)' --loader '/vmlinuz-linux-lts' --unicode "${root_volume} rw rootflags=subvol=@ intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-lts.img" --verbose  &>> "$CONF_LOGFILE"
 		else
-			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw rootflags=subvol=@ quiet loglevel=3 vga=current add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
+			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw rootflags=subvol=@ quiet loglevel=3 add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
 		fi
 	fi && \
 
