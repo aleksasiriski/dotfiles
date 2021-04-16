@@ -69,7 +69,7 @@ paru -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libld
 clear
 
 echo 'Gaming'
-paru -S steam steam-native-runtime lutris heroic-games-launcher-bin libstrangle mangohud goverlay
+paru -S steam steam-native-runtime steam-tweaks lutris heroic-games-launcher-bin libstrangle mangohud goverlay
 clear
 
 echo 'Social'
