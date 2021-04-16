@@ -561,27 +561,13 @@ pre_installation() {
 	sgdisk "/dev/$conf_disk_2" -o -N 1 -t "1:8303" &>> "$CONF_LOGFILE" && \
 
 	print s 'Format boot partition' && \
-	yes | mkfs.vfat -F32 -n EFI "/dev/${conf_disk}${part_prefix}1" && \
+	mkfs.vfat -F32 -n EFI "/dev/${conf_disk}${part_prefix}1" && \
 
 	print s 'Format root partition & label it' && \
 	mkfs.btrfs -L "archlinux" -d raid0 -m raid0 -f "/dev/${conf_disk}${part_prefix}2" "/dev/${conf_disk_2}${part_prefix_2}1" && \
 
 	print s 'Mount partitions' && \
-	mount "/dev/${conf_disk}${part_prefix}2" /mnt && \
-	btrfs sub cr /mnt/@ && \
-	btrfs sub cr /mnt/@tmp && \
-	btrfs sub cr /mnt/@log && \
-	btrfs sub cr /mnt/@pkg && \
-	btrfs sub cr /mnt/@snapshots && \
-	btrfs sub cr /mnt/@home && \
-	umount /mnt && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@ "/dev/${conf_disk}${part_prefix}2" /mnt && \
-	mkdir -p /mnt/{boot/efi,boot/loader/entries,home,var/log,var/cache/pacman/pkg,btrfs,tmp,etc/tmpfiles.d} && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@log "/dev/${conf_disk}${part_prefix}2" /mnt/var/log && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@pkg "/dev/${conf_disk}${part_prefix}2" /mnt/var/cache/pacman/pkg && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@tmp "/dev/${conf_disk}${part_prefix}2" /mnt/tmp && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@home "/dev/${conf_disk}${part_prefix}2" /mnt/home && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvolid=5 "/dev/${conf_disk}${part_prefix}2" /mnt/btrfs && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd "/dev/${conf_disk}${part_prefix}2" /mnt && \
 	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot && \
 	print s 'Removing tmp files on reboot' && {
 	tee -a /mnt/etc/tmpfiles.d/tmp.conf << END
