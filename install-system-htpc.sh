@@ -558,14 +558,13 @@ pre_installation() {
 	sgdisk --zap-all "/dev/$conf_disk" &>> "$CONF_LOGFILE" &&\
 	sgdisk --zap-all "/dev/$conf_disk_2" &>> "$CONF_LOGFILE" &&\
 	sgdisk "/dev/$conf_disk" -o -n 1:0:512M -t 1:ef00 -N 2 -t "2:8303" &>> "$CONF_LOGFILE" && \
-	sgdisk "/dev/$conf_disk_2" -o -n 1:0:512M -t 1:ef00 -N 2 -t "2:8303" &>> "$CONF_LOGFILE" && \
+	sgdisk "/dev/$conf_disk_2" -o -N 1 -t "1:8303" &>> "$CONF_LOGFILE" && \
 
 	print s 'Format boot partition' && \
 	yes | mkfs.vfat -F32 -n EFI "/dev/${conf_disk}${part_prefix}1" && \
-	yes | mkfs.vfat -F32 -n EFI "/dev/${conf_disk_2}${part_prefix_2}1" && \
 
 	print s 'Format root partition & label it' && \
-	mkfs.btrfs -L "archlinux" -d raid0 -m raid0 -f "/dev/${conf_disk}${part_prefix}2" "/dev/${conf_disk_2}${part_prefix_2}2" && \
+	mkfs.btrfs -L "archlinux" -d raid0 -m raid0 -f "/dev/${conf_disk}${part_prefix}2" "/dev/${conf_disk_2}${part_prefix_2}1" && \
 
 	print s 'Mount partitions' && \
 	mount "/dev/${conf_disk}${part_prefix}2" /mnt && \
