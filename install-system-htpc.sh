@@ -567,8 +567,21 @@ pre_installation() {
 	mkfs.btrfs -L "archlinux" -d raid0 -m raid0 -f "/dev/${conf_disk}${part_prefix}2" "/dev/${conf_disk_2}${part_prefix_2}1" && \
 
 	print s 'Mount partitions' && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd "/dev/${conf_disk}${part_prefix}2" /mnt && \
+	mount "/dev/${conf_disk}${part_prefix}2" /mnt && \
+	btrfs sub cr /mnt/@ && \
+	btrfs sub cr /mnt/@tmp && \
+	btrfs sub cr /mnt/@log && \
+	btrfs sub cr /mnt/@pkg && \
+	btrfs sub cr /mnt/@snapshots && \
+	btrfs sub cr /mnt/@home && \
+	umount /mnt && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@ "/dev/${conf_disk}${part_prefix}2" /mnt && \
 	mkdir -p /mnt/{boot/efi,boot/loader/entries,home,var/log,var/cache/pacman/pkg,btrfs,tmp,etc/tmpfiles.d} && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@log "/dev/${conf_disk}${part_prefix}2" /mnt/var/log && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@pkg "/dev/${conf_disk}${part_prefix}2" /mnt/var/cache/pacman/pkg && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@tmp "/dev/${conf_disk}${part_prefix}2" /mnt/tmp && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@home "/dev/${conf_disk}${part_prefix}2" /mnt/home && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvolid=5 "/dev/${conf_disk}${part_prefix}2" /mnt/btrfs && \
 	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot && \
 	print s 'Removing tmp files on reboot' && {
 	tee -a /mnt/etc/tmpfiles.d/tmp.conf << END
@@ -583,9 +596,9 @@ installation() {
 
 	print s 'Install Arch Linux base system' && \
 	if [ "$conf_lts_kernel" = 'yes' ]; then
-		pacstrap /mnt base base-devel linux-lts booster linux-firmware btrfs-progs zstd networkmanager sudo nano $conf_shell &>> "$CONF_LOGFILE"
+		pacstrap /mnt base base-devel linux-lts mkinitcpio linux-firmware btrfs-progs zstd networkmanager sudo nano $conf_shell &>> "$CONF_LOGFILE"
 	else
-		pacstrap /mnt base base-devel linux-zen booster linux-firmware btrfs-progs zstd networkmanager sudo nano $conf_shell &>> "$CONF_LOGFILE"
+		pacstrap /mnt base base-devel linux-zen mkinitcpio linux-firmware btrfs-progs zstd networkmanager sudo nano $conf_shell &>> "$CONF_LOGFILE"
 	fi && \
 
 	print s 'Enable NetworkManager service' && \
@@ -618,6 +631,11 @@ END
 127.0.1.1   $conf_hostname.localdomain $conf_hostname
 END
 	} && \
+
+	print s 'Create initial ramdisk with BTRFS support' && \
+	sed -i 's/^HOOKS=(.*)/HOOKS=(base udev autodetect keyboard keymap consolefont modconf block btrfs filesystems fsck)/' /mnt/etc/mkinitcpio.conf && \
+	arch-chroot /mnt mkinitcpio -P &>> "$CONF_LOGFILE" && \
+
 	print s 'Configure pacman and makepkg' && \
 	curl -L "https://www.archlinux.org/mirrorlist/?protocol=https&ip_version=4&ip_version=6&use_mirror_status=on$mirror_country_url" 2>> "$CONF_LOGFILE" | sed 's/^#//' > /mnt/etc/pacman.d/mirrorlist && \
 	sed 's/[ \t#]*MAKEFLAGS.*$/MAKEFLAGS="-j$(nproc)"/' -i /mnt/etc/makepkg.conf && \
@@ -642,7 +660,7 @@ END
 title    Arch Linux (LTS)
 linux    /vmlinuz-linux-lts
 $([ -n "$cpu_vendor" ] && echo "initrd   /${cpu_vendor}-ucode.img")
-initrd   /booster-linux-lts.img
+initrd   /initramfs-linux-lts.img
 options  $root_volume rw rootflags=subvol=@ intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba add_efi_memmap
 END
 	else
@@ -650,7 +668,7 @@ END
 title    Arch Linux
 linux    /vmlinuz-linux-zen
 $([ -n "$cpu_vendor" ] && echo "initrd   /${cpu_vendor}-ucode.img")
-initrd   /booster-linux-zen.img
+initrd   /initramfs-linux-zen.img
 options  $root_volume rw rootflags=subvol=@ quiet loglevel=3 add_efi_memmap
 END
 	fi && \
@@ -659,9 +677,9 @@ END
 		print s 'Create direct UEFI boot entry' && \
 		root_volume="root=LABEL=archlinux"
 		if [ "$conf_lts_kernel" = 'yes' ]; then
-			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch (LTS)' --loader '/vmlinuz-linux-lts' --unicode "${root_volume} rw rootflags=subvol=@ intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-lts.img" --verbose  &>> "$CONF_LOGFILE"
+			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch (LTS)' --loader '/vmlinuz-linux-lts' --unicode "${root_volume} rw rootflags=subvol=@ intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\initramfs-linux-lts.img" --verbose  &>> "$CONF_LOGFILE"
 		else
-			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw rootflags=subvol=@ quiet loglevel=3 add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\booster-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
+			efibootmgr --disk "/dev/${conf_disk}${part_prefix}" --part 1 --create --label 'Arch' --loader '/vmlinuz-linux-zen' --unicode "${root_volume} rw rootflags=subvol=@ quiet loglevel=3 add_efi_memmap initrd=\\${cpu_vendor}-ucode.img initrd=\initramfs-linux-zen.img" --verbose  &>> "$CONF_LOGFILE"
 		fi
 	fi && \
 
