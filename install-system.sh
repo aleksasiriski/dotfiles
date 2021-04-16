@@ -549,7 +549,6 @@ pre_installation() {
 
 	print s 'Format root partition & label it' && \
 	mkfs.btrfs -L "archlinux" -f "/dev/${conf_disk}${part_prefix}3" && \
-	btrfs filesystem label /dev/${conf_disk}${part_prefix}3 archlinux && \
 
 	print s 'Mount partitions' && \
 	mount "/dev/${conf_disk}${part_prefix}3" /mnt && \
