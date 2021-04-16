@@ -568,6 +568,7 @@ pre_installation() {
 
 	print s 'Mount partitions' && \
 	mount -o relatime,space_cache=v2,ssd,compress-force=zstd "/dev/${conf_disk}${part_prefix}2" /mnt && \
+	mkdir -p /mnt/{boot/efi,boot/loader/entries,home,var/log,var/cache/pacman/pkg,btrfs,tmp,etc/tmpfiles.d} && \
 	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot && \
 	print s 'Removing tmp files on reboot' && {
 	tee -a /mnt/etc/tmpfiles.d/tmp.conf << END
