@@ -17,7 +17,7 @@ sudo systemctl enable --now reflector.service
 sudo systemctl enable --now reflector.timer
 clear
 
-echo 'Gamemoded*'
+echo 'CPU Power'
 paru -S meson dbus cpupower --noconfirm
 sudo systemctl enable cpupower
 clear
@@ -65,11 +65,12 @@ paru -S pavucontrol mictray nm-connection-editor network-manager-applet
 clear
 
 echo 'Wine and dependencies'
-paru -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal v4l-utils lib32-v4l-utils libpulse lib32-libpulse libgpg-error lib32-libgpg-error alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib libjpeg-turbo lib32-libjpeg-turbo sqlite lib32-sqlite libxcomposite lib32-libxcomposite libxinerama lib32-libgcrypt libgcrypt lib32-libxinerama ncurses lib32-ncurses opencl-icd-loader lib32-opencl-icd-loader libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3 gst-plugins-base-libs lib32-gst-plugins-base-libs vulkan-icd-loader lib32-vulkan-icd-loader dxvk-bin libstrangle
+paru -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal v4l-utils lib32-v4l-utils libpulse lib32-libpulse libgpg-error lib32-libgpg-error alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib libjpeg-turbo lib32-libjpeg-turbo sqlite lib32-sqlite libxcomposite lib32-libxcomposite libxinerama lib32-libgcrypt libgcrypt lib32-libxinerama ncurses lib32-ncurses opencl-icd-loader lib32-opencl-icd-loader libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3 gst-plugins-base-libs lib32-gst-plugins-base-libs vulkan-icd-loader lib32-vulkan-icd-loader dxvk-bin
 clear
 
 echo 'Gaming'
-paru -S steam steam-native-runtime steam-tweaks lutris heroic-games-launcher-bin libstrangle mangohud goverlay
+paru -S steam steam-native-runtime steam-tweaks lutris heroic-games-launcher-bin libstrangle mangohud goverlay gamemode lib32-gamemode
+systemctl --user enable gamemoded
 clear
 
 echo 'Social'
