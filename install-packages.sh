@@ -78,7 +78,7 @@ paru -S dino element-desktop lightcord-bin
 clear
 
 echo 'Video & Audio production'
-paru -S obs-studio gimp audacity kdenlive breeze handbrake
+paru -S obs-studio-git wlrobs-hg gimp audacity kdenlive breeze handbrake
 clear
 
 echo 'deluge & balenaEtcher'
