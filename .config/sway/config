@@ -191,7 +191,8 @@ exec lightcord
     bindsym $mod+minus scratchpad show
 
 input * {
-    xkb_layout "us"
+    xkb_layout "us,rs(latin),rs"
+    xkb_options "grp:win_space_toggle"
 }
 
 # Personal settings
