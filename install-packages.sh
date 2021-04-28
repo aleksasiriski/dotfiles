@@ -11,10 +11,11 @@ echo 'Added '$username' to needed groups'
 echo 'Installing packages...'
 
 echo 'Dash, CCache & Reflector'
-paru -S dash dashbinsh ccache ananicy reflector reflector-mirrorlist-update --noconfirm
+paru -S dash dashbinsh ccache ananicy reflector reflector-mirrorlist-update ntp --noconfirm
 sudo systemctl enable --now ananicy.service
 sudo systemctl enable --now reflector.service
 sudo systemctl enable --now reflector.timer
+sudo systemctl enable --now ntpd.service
 clear
 
 echo 'CPU Power'
