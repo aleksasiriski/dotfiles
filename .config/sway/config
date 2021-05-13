@@ -66,7 +66,6 @@ exec wl-paste -t text --watch clipman store
 exec pulseeffects --gapplication-service
 exec mictray
 exec nm-applet --indicator
-exec steam-native -silent
 exec dino --gapplication-service
 exec element-desktop --hidden
 exec lightcord

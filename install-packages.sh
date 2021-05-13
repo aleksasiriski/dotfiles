@@ -11,16 +11,11 @@ echo 'Added '$username' to needed groups'
 echo 'Installing packages...'
 
 echo 'Dash, CCache & Reflector'
-paru -S dash dashbinsh ccache ananicy reflector reflector-mirrorlist-update ntp --noconfirm
-sudo systemctl enable --now ananicy.service
+paru -S dash dashbinsh ccache reflector reflector-mirrorlist-update ntp --noconfirm
+sudo systemctl enable --now systemd-timesyncd.service
 sudo systemctl enable --now reflector.service
 sudo systemctl enable --now reflector.timer
 sudo systemctl enable --now ntpd.service
-clear
-
-echo 'CPU Power'
-paru -S meson dbus cpupower --noconfirm
-sudo systemctl enable cpupower
 clear
 
 echo 'Better CLI tools'
@@ -50,11 +45,11 @@ systemctl --user enable pulseaudio-bluetooth-autoconnect
 clear
 
 echo 'Wayland Window Manager - Sway'
-paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot wl-clipboard clipman fedora-firefox-wayland-bin
+paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot-git wl-clipboard clipman fedora-firefox-wayland-bin
 clear
 
 echo 'Fonts, icons & themes'
-paru -S noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-color ttf-symbola papirus-icon-theme qogir-icon-theme materia-gtk-theme lxappearance
+paru -S gsfonts noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-color ttf-symbola papirus-icon-theme qogir-icon-theme materia-gtk-theme lxappearance
 clear
 
 echo 'Standard GUI apps'
@@ -79,7 +74,7 @@ paru -S dino element-desktop lightcord-bin
 clear
 
 echo 'Video & Audio production'
-paru -S obs-studio-git wlrobs-hg gimp audacity kdenlive breeze handbrake
+paru -S obs-studio-git wlrobs-hg krita audacity kdenlive breeze handbrake
 clear
 
 echo 'deluge & balenaEtcher'
