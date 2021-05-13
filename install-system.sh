@@ -559,13 +559,13 @@ pre_installation() {
 	btrfs sub cr /mnt/@snapshots && \
 	btrfs sub cr /mnt/@home && \
 	umount /mnt && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@ "/dev/${conf_disk}${part_prefix}3" /mnt && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@ "/dev/${conf_disk}${part_prefix}3" /mnt && \
 	mkdir -p /mnt/{boot/efi,boot/loader/entries,home,var/log,var/cache/pacman/pkg,btrfs,tmp,etc/tmpfiles.d} && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@log "/dev/${conf_disk}${part_prefix}3" /mnt/var/log && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@log "/dev/${conf_disk}${part_prefix}3" /mnt/var/log && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
 	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot && \
 	swapon "/dev/${conf_disk}${part_prefix}2" && \
 	print s 'Removing tmp files on reboot' && {
