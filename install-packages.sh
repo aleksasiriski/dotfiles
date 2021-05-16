@@ -48,6 +48,10 @@ echo 'Wayland Window Manager - Sway'
 paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot-git wl-clipboard clipman firefox
 clear
 
+echo 'Minimal gnome'
+paru -S gnome-shell nautilus guake gnome-tweak-tool gnome-control-center xdg-user-dirs gdm gnome-keyring
+sudo systemctl enable gdm
+
 echo 'Fonts, icons & themes'
 paru -S gsfonts noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-color ttf-symbola papirus-icon-theme qogir-icon-theme materia-gtk-theme lxappearance
 clear
@@ -65,7 +69,7 @@ paru -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libld
 clear
 
 echo 'Gaming'
-paru -S steam steam-native-runtime steam-tweaks lutris heroic-games-launcher-bin libstrangle mangohud goverlay gamemode lib32-gamemode
+paru -S steam steam-native-runtime steam-tweaks proton-ge-custom-bin lutris libstrangle mangohud goverlay gamemode lib32-gamemode
 systemctl --user enable gamemoded
 clear
 
@@ -83,13 +87,6 @@ clear
 
 echo 'LibreOffice & Document Viewer'
 paru -S libreoffice-fresh evince-no-gnome
-clear
-
-echo 'Proton-GE'
-cd ~
-rm cproton.sh
-wget https://raw.githubusercontent.com/Termuellinator/ProtonUpdater/master/cproton.sh
-chmod +x cproton.sh
 clear
 
 echo 'Finished installing packages!'
