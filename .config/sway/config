@@ -175,7 +175,7 @@ exec lightcord
     bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+    bindsym $mod+Shift+f floating toggle
 #
 # Scratchpad:
 #
