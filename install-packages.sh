@@ -45,7 +45,7 @@ systemctl --user enable pulseaudio-bluetooth-autoconnect
 clear
 
 echo 'Wayland Window Manager - Sway'
-paru -S sway waybar wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot-git wl-clipboard clipman firefox
+paru -S sway waybar libappindicator-gtk3 wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot wl-clipboard clipman firefox
 clear
 
 echo 'Minimal gnome'
