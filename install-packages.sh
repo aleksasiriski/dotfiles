@@ -26,22 +26,14 @@ echo 'ZSH'
 paru -S zsh zsh-autosuggestions zsh-syntax-highlighting autojump --noconfirm
 clear
 
-echo 'Xorg, Intel and Amd GPU drivers'
-paru -S xorg xorg-xinit mesa lib32-mesa libva-utils --noconfirm
+echo 'Intel and Amd GPU drivers'
+paru -S mesa lib32-mesa libva-utils --noconfirm
 paru -S vulkan-intel intel-media-driver libva-intel-driver --noconfirm
 paru -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
 clear
 
-echo 'Pipewire'
-paru -S pipewire libpipewire02 pipewire-media-session pipewire-alsa pipewire-pulse pipewire-jack pipewire-jack-dropin catia pulseeffects
-systemctl --user enable pipewire pipewire-pulse pipewire-media-session
-clear
-
-echo 'Bluetooth'
-paru -S bluez bluez-plugins bluez-utils blueberry
-sudo systemctl enable bluetooth.service
-sudo systemctl enable bluetooth-autoconnect.service
-systemctl --user enable pulseaudio-bluetooth-autoconnect
+echo 'Xorg'
+paru -S xorg xorg-xinit
 clear
 
 echo 'Wayland Window Manager - Sway'
@@ -49,15 +41,31 @@ paru -S sway waybar libappindicator-gtk3 wofi mako i3status xorg-xwayland qt5-wa
 clear
 
 echo 'Minimal gnome'
-paru -S gnome-shell nautilus guake gnome-tweak-tool gnome-control-center xdg-user-dirs gdm gnome-keyring
+paru -S gnome-shell nautilus guake gnome-tweak-tool gnome-control-center xdg-user-dirs gnome-keyring gdm
 sudo systemctl enable gdm
+clear
+
+echo 'Pipewire'
+paru -S pipewire libpipewire02 pipewire-media-session pipewire-alsa pipewire-pulse pipewire-jack pipewire-jack-dropin catia pulseeffects
+systemctl --user enable pipewire pipewire-pulse pipewire-media-session
+clear
+
+echo 'Pulseaudio'
+paru -S pulseaudio pulseaudio-alsa
+clear
+
+echo 'Bluetooth'
+paru -S bluez bluez-plugins bluez-utils blueberry
+sudo systemctl enable bluetooth.service
+sudo systemctl enable bluetooth-autoconnect.service
+clear
 
 echo 'Fonts, icons & themes'
 paru -S gsfonts noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-color ttf-symbola papirus-icon-theme qogir-icon-theme materia-gtk-theme lxappearance
 clear
 
 echo 'Standard GUI apps'
-paru -S polkit-gnome alacritty devour pcmanfm-gtk3 gvfs gvfs-mtp ntfs-3g xarchiver sublime-text-3 vscodium-bin imv mpv vlc cpu-x
+paru -S polkit-gnome alacritty devour pcmanfm-gtk3 gvfs gvfs-mtp ntfs-3g xarchiver sublime-text-4 vscodium-bin imv mpv vlc cpu-x
 clear
 
 echo 'Systray apps'
