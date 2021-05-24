@@ -37,11 +37,11 @@ paru -S xorg xorg-xinit
 clear
 
 echo 'Wayland Window Manager - Sway'
-paru -S sway waybar libappindicator-gtk3 wofi mako i3status xorg-xwayland qt5-wayland glfw-wayland grimshot wl-clipboard clipman firefox
+paru -S sway xorg-xwayland waybar libappindicator-gtk3 wofi mako i3status qt5-wayland glfw-wayland grimshot wl-clipboard clipman firefox
 clear
 
 echo 'Minimal gnome'
-paru -S gnome-shell nautilus guake gnome-tweak-tool gnome-control-center xdg-user-dirs gnome-keyring gdm
+paru -S gnome-shell xorg-xwayland nautilus guake gnome-tweak-tool gnome-control-center xdg-user-dirs gnome-keyring gdm
 sudo systemctl enable gdm
 clear
 
