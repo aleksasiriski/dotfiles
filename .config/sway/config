@@ -20,9 +20,9 @@ set $menu wofi --show=drun --lines=5 --prompt=""
 
 ### Output configuration
 output DP-1 resolution 1920x1080@144Hz position 0,1080
-output DP-1 bg ~/Stvari/Slike/Wallpapers/archlinux.png fill
+output DP-1 bg ~/Stvari/Slike/Wallpapers/Anime/wallhaven-6759.jpg fill
 output HDMI-A-3 resolution 1920x1080@75Hz position 0,0
-output HDMI-A-3 bg ~/Stvari/Slike/Wallpapers/disenchantment.jpg fill
+output HDMI-A-3 bg ~/Stvari/Slike/Wallpapers/Anime/wallhaven-434981.jpg fill
 output * adaptive_sync on
 
 ### Input configuration
@@ -68,6 +68,7 @@ exec mictray
 exec nm-applet --indicator
 exec dino --gapplication-service
 exec element-desktop --hidden
+exec signal-desktop --start-in-tray
 exec lightcord
 
 ### Key bindings
@@ -90,6 +91,7 @@ exec lightcord
     bindsym $mod+v exec vscodium
     bindsym $mod+g exec lutris
     bindsym $mod+m exec element-desktop
+    bindsym $mod+s exec signal-desktop
     bindsym $mod+d exec lightcord
 
     # Drag floating windows by holding down $mod and left mouse button.
