@@ -86,7 +86,7 @@ paru -S dino element-desktop signal-desktop lightcord-bin
 clear
 
 echo 'Video & Audio production'
-paru -S obs-studio-git wlrobs-hg krita audacity kdenlive breeze handbrake
+paru -S obs-studio wlrobs krita audacity kdenlive breeze handbrake
 clear
 
 echo 'deluge & balenaEtcher'
