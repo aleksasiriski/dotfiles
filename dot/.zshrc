@@ -88,10 +88,8 @@ alias sshnode='ssh node@node.lavelektronik.com'
 alias sshmail='ssh aleksa@mail.lavelektronik.com'
 alias sshpanel='TERM=xterm ssh aleksa@panel.lavelektronik.com'
 
-# server
+# custom
 alias cdsystemd='cd /usr/lib/systemd/system/'
-alias svirsh='sudo virsh'
-alias virsh='gamemoderun virsh'
 alias bat='headsetcontrol -b'
 
 # Startup
