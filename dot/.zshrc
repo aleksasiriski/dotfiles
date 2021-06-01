@@ -81,12 +81,6 @@ alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
-# reboot / halt / poweroff
-alias reboot='sh $HOME/reboot.sh'
-alias poweroff='sh $HOME/shutdown.sh'
-alias halt='sh $HOME/shutdown.sh'
-alias shutdown='sh $HOME/shutdown.sh'
-
 # ssh
 alias sshrouter='ssh admin@router.lavelektronik.com'
 alias sshserver='ssh media@server.lavelektronik.com'
@@ -96,7 +90,8 @@ alias sshpanel='TERM=xterm ssh aleksa@panel.lavelektronik.com'
 
 # server
 alias cdsystemd='cd /usr/lib/systemd/system/'
-alias virsh='sudo virsh'
+alias svirsh='sudo virsh'
+alias virsh='gamemoderun virsh'
 alias bat='headsetcontrol -b'
 
 # Startup
