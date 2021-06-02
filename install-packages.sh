@@ -77,7 +77,7 @@ paru -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libld
 clear
 
 echo 'Gaming'
-paru -S steam steam-native-runtime steam-tweaks proton-ge-custom-bin lutris libstrangle mangohud goverlay gamemode lib32-gamemode
+paru -S steam steam-tweaks proton-ge-custom-bin lutris libstrangle mangohud goverlay gamemode lib32-gamemode
 systemctl --user enable gamemoded
 clear
 
