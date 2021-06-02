@@ -564,7 +564,7 @@ pre_installation() {
 	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@log "/dev/${conf_disk}${part_prefix}3" /mnt/var/log && \
 	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg && \
 	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:5,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home && \
 	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
 	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot && \
 	swapon "/dev/${conf_disk}${part_prefix}2" && \
