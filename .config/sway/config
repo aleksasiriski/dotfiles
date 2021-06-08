@@ -67,9 +67,9 @@ exec pulseeffects --gapplication-service
 exec mictray
 exec nm-applet --indicator
 exec dino --gapplication-service
-exec element-desktop --hidden
 exec signal-desktop --start-in-tray
 exec lightcord
+exec steam-runtime -silent
 
 ### Key bindings
 #

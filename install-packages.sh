@@ -82,7 +82,7 @@ systemctl --user enable gamemoded
 clear
 
 echo 'Social'
-paru -S dino element-desktop signal-desktop lightcord-bin
+paru -S dino signal-desktop lightcord-bin
 clear
 
 echo 'Video & Audio production'
