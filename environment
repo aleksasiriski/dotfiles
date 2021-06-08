@@ -3,7 +3,5 @@
 #
 # Syntax: simple "KEY=VAL" pairs on separate lines
 #
-XDG_CURRENT_DESKTOP=sway
-SDL_VIDEODRIVER=x11
 MOZ_ENABLE_WAYLAND=1
 MANGOHUD=1
