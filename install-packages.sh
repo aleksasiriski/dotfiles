@@ -46,7 +46,8 @@ sudo systemctl enable gdm
 clear
 
 echo 'Pipewire'
-paru -S pipewire libpipewire02 pipewire-media-session pipewire-alsa pipewire-pulse pipewire-jack pipewire-jack-dropin catia pulseeffects
+paru -S pipewire libpipewire02 pipewire-media-session pipewire-alsa pipewire-pulse pipewire-jack
+paru -S pipewire-jack-dropin catia pulseeffects
 systemctl --user enable pipewire pipewire-pulse pipewire-media-session
 clear
 
