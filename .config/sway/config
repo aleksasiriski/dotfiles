@@ -68,8 +68,9 @@ exec mictray
 exec nm-applet --indicator
 exec dino --gapplication-service
 exec signal-desktop --start-in-tray
-exec lightcord
-exec steam-runtime -silent
+exec lightcord --start-minimized
+#exec steam -no-browser -silent
+exec steam -silent
 
 ### Key bindings
 #
