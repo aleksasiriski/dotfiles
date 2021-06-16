@@ -50,10 +50,6 @@ paru -S pipewire libpipewire02 pipewire-media-session pipewire-alsa pipewire-pul
 systemctl --user enable pipewire pipewire-pulse pipewire-media-session
 clear
 
-echo 'Pulseaudio'
-paru -S pulseaudio pulseaudio-alsa
-clear
-
 echo 'Bluetooth'
 paru -S bluez bluez-plugins bluez-utils blueberry
 sudo systemctl enable bluetooth.service
