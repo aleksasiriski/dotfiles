@@ -40,7 +40,7 @@ systemctl --user enable pipewire pipewire-pulse pipewire-media-session
 clear
 
 echo 'Bluetooth'
-paru -S bluez bluez-plugins bluez-utils blueberry --noconfirm
+paru -S bluez bluez-plugins bluez-utils bluetooth-autoconnect blueberry --noconfirm
 sudo systemctl enable bluetooth.service
 sudo systemctl enable bluetooth-autoconnect.service
 clear
