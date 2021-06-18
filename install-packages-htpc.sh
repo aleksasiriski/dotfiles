@@ -30,10 +30,6 @@ paru -S vulkan-intel intel-media-driver libva-intel-driver --noconfirm
 paru -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau --noconfirm
 clear
 
-echo 'Wayland Window Manager - Sway'
-paru -S sway xorg-xwayland wofi qt5-wayland glfw-wayland wl-clipboard clipman --noconfirm
-clear
-
 echo 'Pipewire'
 paru -S pipewire libpipewire02 pipewire-media-session pipewire-alsa pipewire-pulse pipewire-jack --noconfirm
 systemctl --user enable pipewire pipewire-pulse pipewire-media-session
@@ -49,10 +45,6 @@ echo 'Fonts, icons & themes'
 paru -S gsfonts noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-color ttf-symbola papirus-icon-theme qogir-icon-theme materia-gtk-theme lxappearance --noconfirm
 clear
 
-echo 'Standard GUI apps'
-paru -S alacritty firefox pcmanfm-gtk3 gvfs gvfs-mtp xarchiver gedit imv mpv --noconfirm
-clear
-
 echo 'Systray apps'
 paru -S pavucontrol --noconfirm
 clear
@@ -62,7 +54,7 @@ paru -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libld
 clear
 
 echo 'Gaming'
-paru -S steam steam-tweaks proton-ge-custom-bin gamemode lib32-gamemode --noconfirm
+paru -S steam steam-tweaks steamos-compositor-plus proton-ge-custom-bin gamemode lib32-gamemode --noconfirm
 systemctl --user enable gamemoded
 clear
 
