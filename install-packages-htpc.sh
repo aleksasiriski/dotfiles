@@ -9,11 +9,12 @@ echo 'Added gamer to needed groups'
 echo 'Installing packages...'
 
 echo 'Dash, CCache & Reflector'
-paru -S dash dashbinsh ccache reflector reflector-mirrorlist-update ntp --noconfirm
+paru -S dash dashbinsh ccache reflector reflector-mirrorlist-update ntp openssh --noconfirm
 sudo systemctl enable --now systemd-timesyncd.service
 sudo systemctl enable --now reflector.service
 sudo systemctl enable --now reflector.timer
 sudo systemctl enable --now ntpd.service
+sudo systemctl enable --now sshd.service
 clear
 
 echo 'Better CLI tools'
@@ -26,23 +27,21 @@ clear
 
 echo 'Intel and Amd GPU drivers'
 paru -S mesa lib32-mesa libva-utils --noconfirm
-paru -S vulkan-intel intel-media-driver libva-intel-driver --noconfirm
 paru -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau --noconfirm
 clear
 
 echo 'Pipewire'
 paru -S pipewire libpipewire02 pipewire-media-session pipewire-alsa pipewire-pulse pipewire-jack --noconfirm
-systemctl --user enable pipewire pipewire-pulse pipewire-media-session
+systemctl --user enable --now pipewire.service pipewire-pulse.service pipewire-media-session.service
 clear
 
 echo 'Bluetooth'
-paru -S bluez bluez-plugins bluez-utils bluetooth-autoconnect blueberry --noconfirm
-sudo systemctl enable bluetooth.service
-sudo systemctl enable bluetooth-autoconnect.service
+paru -S bluez bluez-plugins bluez-utils bluetooth-autoconnect --noconfirm
+sudo systemctl enable --now bluetooth.service bluetooth-autoconnect.service
 clear
 
 echo 'Fonts, icons & themes'
-paru -S gsfonts noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-color ttf-symbola papirus-icon-theme qogir-icon-theme materia-gtk-theme lxappearance --noconfirm
+paru -S gsfonts noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk ttf-twemoji-color ttf-symbola --noconfirm
 clear
 
 echo 'Systray apps'
@@ -54,8 +53,12 @@ paru -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libld
 clear
 
 echo 'Gaming'
-paru -S steam steam-tweaks steamos-compositor-plus proton-ge-custom-bin gamemode lib32-gamemode --noconfirm
-systemctl --user enable gamemoded
+paru -S steam steam-tweaks proton-ge-custom-bin gamemode lib32-gamemode --noconfirm
+systemctl --user enable --now gamemoded
+clear
+
+echo 'SteamOS'
+paru -S xorg xorg-xinit steamos-compositor-plus --noconfirm
 clear
 
 echo 'Finished installing packages!'

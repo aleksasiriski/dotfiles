@@ -32,29 +32,24 @@ paru -S vulkan-intel intel-media-driver libva-intel-driver --noconfirm
 paru -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau --noconfirm
 clear
 
-echo 'Xorg'
-paru -S xorg xorg-xinit
+echo 'Xorg & Minimal Gnome'
+paru -S xorg xorg-xinit gnome-shell nautilus guake gnome-tweak-tool gnome-control-center xdg-user-dirs gnome-keyring gdm
+sudo systemctl enable gdm
 clear
 
 echo 'Wayland Window Manager - Sway'
 paru -S sway xorg-xwayland waybar libappindicator-gtk3 wofi mako i3status qt5-wayland glfw-wayland grimshot wl-clipboard clipman
 clear
 
-echo 'Minimal gnome'
-paru -S gnome-shell xorg-xwayland nautilus guake gnome-tweak-tool gnome-control-center xdg-user-dirs gnome-keyring gdm
-sudo systemctl enable gdm
-clear
-
 echo 'Pipewire'
 paru -S pipewire libpipewire02 pipewire-media-session pipewire-alsa pipewire-pulse pipewire-jack
 paru -S pipewire-jack-dropin catia pulseeffects
-systemctl --user enable pipewire pipewire-pulse pipewire-media-session
+systemctl --user enable pipewire.service pipewire-pulse.service pipewire-media-session.service
 clear
 
 echo 'Bluetooth'
 paru -S bluez bluez-plugins bluez-utils bluetooth-autoconnect blueberry
-sudo systemctl enable bluetooth.service
-sudo systemctl enable bluetooth-autoconnect.service
+sudo systemctl enable bluetooth.service bluetooth-autoconnect.service
 clear
 
 echo 'Fonts, icons & themes'
