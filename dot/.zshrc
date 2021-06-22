@@ -50,6 +50,7 @@ source /usr/share/autojump/autojump.zsh 2>/dev/null
 
 # Aliases
 alias pacman='sudo pacman'
+alias parus='paru -Syu --noconfirm'
 alias sheesh='paru -Rns'
 
 alias ls='ls --color=auto'
