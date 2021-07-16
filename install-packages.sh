@@ -12,10 +12,7 @@ echo 'Installing packages...'
 
 echo 'Dash, CCache & Reflector'
 paru -S dash dashbinsh ccache reflector reflector-mirrorlist-update ntp --noconfirm
-sudo systemctl enable --now systemd-timesyncd.service
-sudo systemctl enable --now reflector.service
-sudo systemctl enable --now reflector.timer
-sudo systemctl enable --now ntpd.service
+sudo systemctl enable --now systemd-timesyncd.service reflector.service reflector.timer ntpd.service
 clear
 
 echo 'Better CLI tools'
@@ -70,7 +67,7 @@ clear
 
 echo 'Gaming'
 paru -S steam steam-tweaks proton-ge-custom-bin lutris dxvk-bin libstrangle mangohud goverlay gamemode lib32-gamemode
-systemctl --user enable gamemoded
+systemctl --user enable gamemoded.service
 clear
 
 echo 'Social'
