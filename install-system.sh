@@ -2,7 +2,7 @@
 
 # System installation script for Arch Linux
 
-CONF_VERSION="1.1.0"
+CONF_VERSION="1.2.0"
 
 cb="$(tput setaf 0)"
 cr="$(tput setaf 1)"
@@ -536,38 +536,38 @@ pre_installation() {
 		true
 	} && \
 
-	swapoff "/dev/${conf_disk}${part_prefix}2"
+	swapoff "/dev/${conf_disk}${part_prefix}2" &>> "$CONF_LOGFILE" && \
 	print s 'Format disk' && \
 	sgdisk --zap-all "/dev/$conf_disk" &>> "$CONF_LOGFILE" &&\
 	sgdisk "/dev/$conf_disk" -o -n 1:0:512M -t 1:ef00 -n 2:513M:2561M -t "2:8200" -N 3 -t "3:8303" &>> "$CONF_LOGFILE" && \
 
 	print s 'Format boot partition' && \
-	mkfs.vfat -F32 -n EFI "/dev/${conf_disk}${part_prefix}1" && \
+	mkfs.vfat -F32 -n EFI "/dev/${conf_disk}${part_prefix}1" &>> "$CONF_LOGFILE" && \
 
 	print s 'Format swap partition' && \
-	mkswap -L "swap" "/dev/${conf_disk}${part_prefix}2" && \
+	mkswap -L "swap" "/dev/${conf_disk}${part_prefix}2" &>> "$CONF_LOGFILE" && \
 
 	print s 'Format root partition & label it' && \
-	mkfs.btrfs -L "archlinux" -f "/dev/${conf_disk}${part_prefix}3" && \
+	mkfs.btrfs -L "archlinux" -f "/dev/${conf_disk}${part_prefix}3" &>> "$CONF_LOGFILE" && \
 
 	print s 'Mount partitions' && \
-	mount "/dev/${conf_disk}${part_prefix}3" /mnt && \
-	btrfs sub cr /mnt/@ && \
-	btrfs sub cr /mnt/@tmp && \
-	btrfs sub cr /mnt/@log && \
-	btrfs sub cr /mnt/@pkg && \
-	btrfs sub cr /mnt/@snapshots && \
-	btrfs sub cr /mnt/@home && \
-	umount /mnt && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@ "/dev/${conf_disk}${part_prefix}3" /mnt && \
-	mkdir -p /mnt/{boot/efi,boot/loader/entries,home,var/log,var/cache/pacman/pkg,btrfs,tmp,etc/tmpfiles.d} && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@log "/dev/${conf_disk}${part_prefix}3" /mnt/var/log && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:5,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home && \
-	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs && \
-	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot && \
-	swapon "/dev/${conf_disk}${part_prefix}2" && \
+	mount "/dev/${conf_disk}${part_prefix}3" /mnt &>> "$CONF_LOGFILE" && \
+	btrfs sub cr /mnt/@ &>> "$CONF_LOGFILE" && \
+	btrfs sub cr /mnt/@tmp &>> "$CONF_LOGFILE" && \
+	btrfs sub cr /mnt/@log &>> "$CONF_LOGFILE" && \
+	btrfs sub cr /mnt/@pkg &>> "$CONF_LOGFILE" && \
+	btrfs sub cr /mnt/@snapshots &>> "$CONF_LOGFILE" && \
+	btrfs sub cr /mnt/@home &>> "$CONF_LOGFILE" && \
+	umount /mnt &>> "$CONF_LOGFILE" && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@ "/dev/${conf_disk}${part_prefix}3" /mnt &>> "$CONF_LOGFILE" && \
+	mkdir -p /mnt/{boot/efi,boot/loader/entries,home,var/log,var/cache/pacman/pkg,btrfs,tmp,etc/tmpfiles.d} &>> "$CONF_LOGFILE" && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@log "/dev/${conf_disk}${part_prefix}3" /mnt/var/log &>> "$CONF_LOGFILE" && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@pkg "/dev/${conf_disk}${part_prefix}3" /mnt/var/cache/pacman/pkg &>> "$CONF_LOGFILE" && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvol=@tmp "/dev/${conf_disk}${part_prefix}3" /mnt/tmp &>> "$CONF_LOGFILE" && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:5,subvol=@home "/dev/${conf_disk}${part_prefix}3" /mnt/home &>> "$CONF_LOGFILE" && \
+	mount -o relatime,space_cache=v2,ssd,compress-force=zstd:3,subvolid=5 "/dev/${conf_disk}${part_prefix}3" /mnt/btrfs &>> "$CONF_LOGFILE" && \
+	mount "/dev/${conf_disk}${part_prefix}1" /mnt/boot &>> "$CONF_LOGFILE" && \
+	swapon "/dev/${conf_disk}${part_prefix}2" &>> "$CONF_LOGFILE" && \
 	print s 'Removing tmp files on reboot' && {
 	tee -a /mnt/etc/tmpfiles.d/tmp.conf << END
 D! /tmp 1777 root root 0
@@ -641,7 +641,7 @@ title    Arch Linux (LTS)
 linux    /vmlinuz-linux-lts
 $([ -n "$cpu_vendor" ] && echo "initrd   /${cpu_vendor}-ucode.img")
 initrd   /booster-linux-lts.img
-options  $root_volume rw rootflags=subvol=@ intel_iommu=on vfio-pci.ids=10de:1401,10de:0fba add_efi_memmap
+options  $root_volume rw rootflags=subvol=@ add_efi_memmap
 END
 	else
 		tee /mnt/boot/loader/entries/arch.conf &>> "$CONF_LOGFILE" << END
