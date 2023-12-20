@@ -1,0 +1,13 @@
+[include]
+	path = ~/Documents/Projects/Personal/.gitconfig-personal
+[includeIf "gitdir:~/Documents/Projects/Work/Cyberlab/"]
+	path = ~/Documents/Projects/Work/Cyberlab/.gitconfig-cyberlab
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[commit]
+	gpgsign = false
+[gpg]
+	format = ssh

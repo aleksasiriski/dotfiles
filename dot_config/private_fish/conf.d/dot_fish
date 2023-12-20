@@ -1,0 +1,6 @@
+if status is-interactive
+    set -x fish_greeting
+    set -x NAME     'Aleksa Siriški'
+    set -x EMAIL    'sir@tmina.org'
+    set -x EDITOR   'micro'
+end
